@@ -1,0 +1,16 @@
+{
+  "overview": "SAAAS is a showcase site for an AI governance platform, featuring an interactive Control Room demonstration page.",
+  "features": [
+    "Interactive Control Room governance demonstration page",
+    "Scenario-based governance gauges and decision badges",
+    "Event timeline table",
+    "Explore Control Room buttons linking to the demo"
+  ],
+  "category": "showcase",
+  "tags": [
+    "ai",
+    "governance",
+    "showcase"
+  ],
+  "last_updated": "2026-09-14T14:46:29.829Z"
+}

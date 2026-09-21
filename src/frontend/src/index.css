@@ -1,0 +1,210 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "Space Grotesk";
+  src: url("/assets/fonts/SpaceGrotesk.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "DM Sans";
+  src: url("/assets/fonts/DMSans.woff2") format("woff2");
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("/assets/fonts/JetBrainsMono.woff2") format("woff2");
+  font-display: swap;
+}
+
+@layer base {
+  :root {
+    --font-display: "Space Grotesk", sans-serif;
+    --font-body: "DM Sans", sans-serif;
+    --font-mono: "JetBrains Mono", monospace;
+    --radius: 0.25rem;
+
+    /* SAAAS — Sovereign AI. Dark, premium, electric-cyan on near-black. */
+    --background: 0.2 0.04 258.291; /* #0A1628 page bg */
+    --foreground: 1 0 0; /* #FFFFFF headlines */
+    --card: 0.239 0.047 259.117; /* #111F35 card bg */
+    --card-foreground: 0.71 0.022 255; /* #A8B4C8 body */
+    --popover: 0.239 0.047 259.117;
+    --popover-foreground: 0.71 0.022 255;
+
+    --primary: 0.775 0.15 220; /* #00C8FF electric cyan */
+    --primary-foreground: 0.035 0.005 255; /* #07090F on cyan */
+
+    --secondary: 0.25 0.085 255; /* #1A3A6B deep blue */
+    --secondary-foreground: 1 0 0;
+    --muted: 0.218 0.036 251.294; /* #0D1B2A alt section */
+    --muted-foreground: 0.43 0.028 255; /* #5A6A80 muted label */
+
+    --accent: 0.775 0.15 220; /* #00C8FF accent */
+    --accent-foreground: 0.035 0.005 255;
+
+    --destructive: 0.55 0.2 25;
+    --destructive-foreground: 1 0 0;
+
+    /* Control Room — self-contained status/gauge/badge tokens */
+    --success: 0.72 0.16 150; /* #22C55E green gauge */
+    --warning: 0.7 0.16 75; /* #F59E0B amber gauge */
+    --badge-allow: 0.28 0.09 150; /* #14532D ALLOW badge bg */
+    --badge-escalate: 0.25 0.09 55; /* #451A03 ESCALATE badge bg */
+    --badge-block: 0.24 0.11 25; /* #450A0A BLOCK badge bg */
+
+    --border: 0.17 0.02 255; /* #1E293B card border */
+    --input: 0.17 0.02 255;
+    --ring: 0.775 0.15 220; /* #00C8FF focus ring */
+
+    --chart-1: 0.775 0.15 220; /* cyan */
+    --chart-2: 0.62 0.12 255; /* sky */
+    --chart-3: 0.25 0.085 255; /* deep blue */
+    --chart-4: 0.82 0.018 255; /* slate */
+    --chart-5: 0.43 0.028 255; /* muted */
+
+    --sidebar: 0.163 0.028 259.942; /* #070E1A nav */
+    --sidebar-foreground: 0.82 0.018 255; /* #CBD5E1 nav links */
+    --sidebar-primary: 0.775 0.15 220;
+    --sidebar-primary-foreground: 0.035 0.005 255;
+    --sidebar-accent: 0.218 0.036 251.294;
+    --sidebar-accent-foreground: 0.82 0.018 255;
+    --sidebar-border: 0.17 0.02 255;
+    --sidebar-ring: 0.775 0.15 220;
+  }
+
+  .dark {
+    --background: 0.2 0.04 258.291;
+    --foreground: 1 0 0;
+    --card: 0.239 0.047 259.117;
+    --card-foreground: 0.71 0.022 255;
+    --popover: 0.239 0.047 259.117;
+    --popover-foreground: 0.71 0.022 255;
+
+    --primary: 0.775 0.15 220;
+    --primary-foreground: 0.035 0.005 255;
+
+    --secondary: 0.25 0.085 255;
+    --secondary-foreground: 1 0 0;
+    --muted: 0.218 0.036 251.294;
+    --muted-foreground: 0.43 0.028 255;
+
+    --accent: 0.775 0.15 220;
+    --accent-foreground: 0.035 0.005 255;
+
+    --destructive: 0.55 0.2 25;
+    --destructive-foreground: 1 0 0;
+
+    --success: 0.72 0.16 150;
+    --warning: 0.7 0.16 75;
+    --badge-allow: 0.28 0.09 150;
+    --badge-escalate: 0.25 0.09 55;
+    --badge-block: 0.24 0.11 25;
+
+    --border: 0.17 0.02 255;
+    --input: 0.17 0.02 255;
+    --ring: 0.775 0.15 220;
+
+    --chart-1: 0.775 0.15 220;
+    --chart-2: 0.62 0.12 255;
+    --chart-3: 0.25 0.085 255;
+    --chart-4: 0.82 0.018 255;
+    --chart-5: 0.43 0.028 255;
+
+    --sidebar: 0.163 0.028 259.942;
+    --sidebar-foreground: 0.82 0.018 255;
+    --sidebar-primary: 0.775 0.15 220;
+    --sidebar-primary-foreground: 0.035 0.005 255;
+    --sidebar-accent: 0.218 0.036 251.294;
+    --sidebar-accent-foreground: 0.82 0.018 255;
+    --sidebar-border: 0.17 0.02 255;
+    --sidebar-ring: 0.775 0.15 220;
+  }
+
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-body antialiased;
+    font-size: 16px; /* base/body text */
+  }
+}
+
+@layer utilities {
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Display headline — uppercase, heavy, wide tracking */
+  .display-headline {
+    font-family: var(--font-display);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.05;
+  }
+
+  /* Eyebrow / label — small, uppercase, wide tracking, muted (13px) */
+  .eyebrow {
+    font-family: var(--font-display);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.8125rem; /* 13px */
+    color: oklch(var(--muted-foreground));
+  }
+
+  /* Accent label — axis names, badges, card number labels, electric cyan (14px) */
+  .accent-label {
+    font-family: var(--font-mono);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.875rem; /* 14px card number labels */
+    color: oklch(var(--primary));
+  }
+
+  /* Section subheadline / description (18px) */
+  .subheadline {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.6;
+    color: oklch(var(--card-foreground));
+  }
+
+  /* Section vertical padding tiers */
+  .section-hero {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
+  .section-content {
+    padding-top: 60px;
+    padding-bottom: 60px;
+  }
+  .section-cta {
+    padding-top: 56px;
+    padding-bottom: 56px;
+  }
+
+  /* Subtle cyan gradient for hero text accents */
+  .text-gradient-cyan {
+    background: linear-gradient(
+      100deg,
+      oklch(var(--primary)) 0%,
+      oklch(0.62 0.12 255) 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* Card hover border accent */
+  .card-accent-hover {
+    transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  .card-accent-hover:hover {
+    border-color: oklch(var(--primary));
+  }
+}
