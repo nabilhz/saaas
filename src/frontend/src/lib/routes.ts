@@ -3,6 +3,18 @@ export interface NavLink {
   to: string;
 }
 
+export interface NavDropdownItem {
+  label: string;
+  to?: string;
+  href?: string;
+  external?: boolean;
+}
+
+export interface NavDropdown {
+  label: string;
+  items: NavDropdownItem[];
+}
+
 export const navLinks: NavLink[] = [
   { label: "HOME", to: "/" },
   { label: "WHY SAAAS", to: "/why-saaas" },
@@ -10,9 +22,20 @@ export const navLinks: NavLink[] = [
   { label: "GOVERNANCE", to: "/governance" },
   { label: "SOLUTIONS", to: "/solutions" },
   { label: "COUNTRY NODES", to: "/country-nodes" },
-  { label: "RESOURCES", to: "/resources" },
   { label: "ABOUT", to: "/about" },
 ];
+
+export const resourcesDropdown: NavDropdown = {
+  label: "RESOURCES",
+  items: [
+    {
+      label: "SAAAS Overview",
+      href: "https://tmu.ai/docs/SovereignAI-as-a-service.pdf",
+      external: true,
+    },
+    { label: "Resource Library", to: "/resources" },
+  ],
+};
 
 export const footerColumns: {
   title: string;

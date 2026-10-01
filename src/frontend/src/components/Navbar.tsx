@@ -1,9 +1,29 @@
 import { Button } from "@/components/Button";
-import { navLinks } from "@/lib/routes";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { navLinks, resourcesDropdown } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { ChevronDown, Menu, X } from "lucide-react";
+import type { CSSProperties } from "react";
 import { useState } from "react";
+
+const dropdownContentStyle: CSSProperties = {
+  backgroundColor: "#0D1B2A",
+  border: "1px solid #1E293B",
+  borderRadius: "6px",
+  padding: "4px",
+};
+
+const dropdownItemStyle: CSSProperties = {
+  color: "#CBD5E1",
+  borderRadius: "6px",
+  padding: "12px 20px",
+};
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -33,6 +53,50 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
+
+          {/* Resources dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              className="group inline-flex items-center gap-1 whitespace-nowrap text-[13px] font-medium tracking-[0.04em] text-sidebar-foreground transition-colors duration-200 hover:text-primary data-[state=open]:text-primary"
+              data-ocid="nav.dropdown.resources"
+            >
+              {resourcesDropdown.label}
+              <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="start"
+              sideOffset={10}
+              className="min-w-[200px] shadow-lg"
+              style={dropdownContentStyle}
+              data-ocid="nav.dropdown.resources_menu"
+            >
+              {resourcesDropdown.items.map((item) =>
+                item.external && item.href ? (
+                  <DropdownMenuItem
+                    key={item.label}
+                    asChild
+                    className="cursor-pointer text-[13px] font-medium tracking-[0.04em] transition-colors duration-200 hover:text-[#00C8FF] focus:text-[#00C8FF]"
+                    style={dropdownItemStyle}
+                    data-ocid="nav.dropdown.resources.saaas_overview"
+                  >
+                    <a href={item.href} target="_blank" rel="noreferrer">
+                      {item.label}
+                    </a>
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem
+                    key={item.label}
+                    asChild
+                    className="cursor-pointer text-[13px] font-medium tracking-[0.04em] transition-colors duration-200 hover:text-[#00C8FF] focus:text-[#00C8FF]"
+                    style={dropdownItemStyle}
+                    data-ocid="nav.dropdown.resources.resource_library"
+                  >
+                    <Link to={item.to ?? "/resources"}>{item.label}</Link>
+                  </DropdownMenuItem>
+                ),
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
 
         {/* Right CTA buttons */}
@@ -89,6 +153,60 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
+
+          {/* Mobile resources dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger
+              className="group inline-flex items-center gap-1 whitespace-nowrap rounded-[4px] px-3 py-3 text-left text-[13px] font-medium tracking-[0.04em] text-sidebar-foreground transition-colors hover:text-primary data-[state=open]:text-primary"
+              data-ocid="nav.mobile.dropdown.resources"
+            >
+              {resourcesDropdown.label}
+              <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent
+              align="start"
+              sideOffset={6}
+              className="min-w-[200px] shadow-lg"
+              style={dropdownContentStyle}
+              data-ocid="nav.mobile.dropdown.resources_menu"
+            >
+              {resourcesDropdown.items.map((item) =>
+                item.external && item.href ? (
+                  <DropdownMenuItem
+                    key={item.label}
+                    asChild
+                    className="cursor-pointer text-[13px] font-medium tracking-[0.04em] transition-colors duration-200 hover:text-[#00C8FF] focus:text-[#00C8FF]"
+                    style={dropdownItemStyle}
+                    data-ocid="nav.mobile.dropdown.resources.saaas_overview"
+                  >
+                    <a
+                      href={item.href}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.label}
+                    </a>
+                  </DropdownMenuItem>
+                ) : (
+                  <DropdownMenuItem
+                    key={item.label}
+                    asChild
+                    className="cursor-pointer text-[13px] font-medium tracking-[0.04em] transition-colors duration-200 hover:text-[#00C8FF] focus:text-[#00C8FF]"
+                    style={dropdownItemStyle}
+                    data-ocid="nav.mobile.dropdown.resources.resource_library"
+                  >
+                    <Link
+                      to={item.to ?? "/resources"}
+                      onClick={() => setOpen(false)}
+                    >
+                      {item.label}
+                    </Link>
+                  </DropdownMenuItem>
+                ),
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
           <div className="mt-3 flex flex-col gap-3 border-t border-border pt-4">
             <Button
               asChild

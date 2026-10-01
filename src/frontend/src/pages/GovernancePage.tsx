@@ -225,6 +225,28 @@ export default function GovernancePage() {
               >
                 <Link to="/control-room">Explore Control Room</Link>
               </Button>
+              <Button
+                asChild
+                size="lg"
+                className="h-auto"
+                style={{
+                  background: "transparent",
+                  border: "1.5px solid #00C8FF",
+                  color: "#00C8FF",
+                  borderRadius: "4px",
+                  padding: "14px 28px",
+                  fontWeight: 600,
+                }}
+                data-ocid="governance.cta.secondary_button"
+              >
+                <a
+                  href="https://tmu.ai/docs/SovereignAI-as-a-service.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Read the SAAAS Overview
+                </a>
+              </Button>
             </div>
           </div>
         </div>

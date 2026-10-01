@@ -2,37 +2,17 @@
 
 ## User Preferences
 
-[No preferences yet]
+- Surgical, minimal edits: change only what is requested and leave everything else untouched
+- Match exact requested colors, borders, radii, padding and font weights for new UI elements
 
 ## Verified Commands
 
-**Frontend** (run from `src/frontend/`):
-
-- **install**: `pnpm install --prefer-offline`
-- **typecheck**: `pnpm typecheck`
-- **lint fix**: `pnpm fix`
-- **build**: `pnpm build`
-
-**Backend** (run from `src/backend/`):
-
-- **install**: `mops install`
 - **typecheck**: `mops check --fix`
 - **build**: `mops build`
 
-**Backend and frontend integration** (run from root):
-
-- **generate bindings**: `pnpm bindgen` This step is necessary to ensure the frontend can call the backend methods.
-
-## Head Metadata (SEO and Link Previews)
-
-`src/frontend/index.html` ships with social-sharing meta tags (`description`, `og:title`, `og:description`, `og:type`, `og:image`, `og:image:alt`, `twitter:card`, `twitter:image`). Links shared to this app only render a preview card if these tags are present in the deployed `index.html`.
-
-When editing `index.html` (e.g. changing the title or favicon):
-
-- **Never remove these meta tags.** Update them instead.
-- Keep `og:title` identical to `<title>`, and `og:description` identical to the `description` meta tag.
-- `og:image` and `twitter:image` must always point to an absolute `https://` URL. Keep the pre-configured default image unless the user explicitly provides or requests a custom share image; a custom image should be 1200×630 pixels.
-
 ## Learnings
 
-[No learnings yet]
+- The app is frontend-only (no backend wasm); the tester's PocketIC backend lane skips with no_backend_wasm
+- Nav items are data-driven from navLinks/resourcesDropdown in src/frontend/src/lib/routes.ts; the Resources item is a dropdown, not a direct link
+- The Button component renders labels uppercase via CSS, so title-case source text displays as uppercase
+- Radix dropdown items need explicit hover:/focus: classes for hover text color since inline styles cannot express pseudo-states
