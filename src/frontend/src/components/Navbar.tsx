@@ -1,10 +1,12 @@
 import { Button } from "@/components/Button";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useLanguage } from "@/i18n";
 import { navLinks, resourcesDropdown } from "@/lib/routes";
 import { cn } from "@/lib/utils";
 import { Link } from "@tanstack/react-router";
@@ -25,22 +27,27 @@ const dropdownItemStyle: CSSProperties = {
   padding: "12px 20px",
 };
 
+function ocidSuffix(key: string): string {
+  return key.replace(/^nav\./, "").replace(/\./g, "_");
+}
+
 export function Navbar() {
   const [open, setOpen] = useState(false);
+  const { t } = useLanguage();
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-border bg-sidebar">
-      <nav className="container flex h-16 items-center justify-between gap-6">
+      <nav className="container flex h-16 items-center justify-between gap-4 px-4">
         <Link
           to="/"
-          className="font-display text-xl font-bold tracking-[0.06em] text-foreground"
+          className="shrink-0 font-display text-xl font-bold tracking-[0.06em] text-foreground"
           data-ocid="nav.logo"
         >
           SAAAS
         </Link>
 
         {/* Desktop center links */}
-        <div className="hidden items-center gap-4 lg:flex">
+        <div className="hidden min-w-0 items-center gap-[14px] lg:flex">
           {navLinks.map((link) => (
             <Link
               key={link.to}
@@ -48,9 +55,9 @@ export function Navbar() {
               className="whitespace-nowrap text-[13px] font-medium tracking-[0.04em] transition-colors duration-200 hover:text-primary"
               activeProps={{ className: "text-primary" }}
               inactiveProps={{ className: "text-sidebar-foreground" }}
-              data-ocid={`nav.link.${link.label.toLowerCase().replace(/\s+/g, "_")}`}
+              data-ocid={`nav.link.${ocidSuffix(link.labelKey)}`}
             >
-              {link.label}
+              {t(link.labelKey)}
             </Link>
           ))}
 
@@ -60,7 +67,7 @@ export function Navbar() {
               className="group inline-flex items-center gap-1 whitespace-nowrap text-[13px] font-medium tracking-[0.04em] text-sidebar-foreground transition-colors duration-200 hover:text-primary data-[state=open]:text-primary"
               data-ocid="nav.dropdown.resources"
             >
-              {resourcesDropdown.label}
+              {t(resourcesDropdown.labelKey)}
               <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -73,25 +80,25 @@ export function Navbar() {
               {resourcesDropdown.items.map((item) =>
                 item.external && item.href ? (
                   <DropdownMenuItem
-                    key={item.label}
+                    key={item.labelKey}
                     asChild
                     className="cursor-pointer text-[13px] font-medium tracking-[0.04em] transition-colors duration-200 hover:text-[#00C8FF] focus:text-[#00C8FF]"
                     style={dropdownItemStyle}
                     data-ocid="nav.dropdown.resources.saaas_overview"
                   >
                     <a href={item.href} target="_blank" rel="noreferrer">
-                      {item.label}
+                      {t(item.labelKey)}
                     </a>
                   </DropdownMenuItem>
                 ) : (
                   <DropdownMenuItem
-                    key={item.label}
+                    key={item.labelKey}
                     asChild
                     className="cursor-pointer text-[13px] font-medium tracking-[0.04em] transition-colors duration-200 hover:text-[#00C8FF] focus:text-[#00C8FF]"
                     style={dropdownItemStyle}
                     data-ocid="nav.dropdown.resources.resource_library"
                   >
-                    <Link to={item.to ?? "/resources"}>{item.label}</Link>
+                    <Link to={item.to ?? "/resources"}>{t(item.labelKey)}</Link>
                   </DropdownMenuItem>
                 ),
               )}
@@ -99,23 +106,28 @@ export function Navbar() {
           </DropdownMenu>
         </div>
 
+        {/* Language switcher — between the nav links and the CTA buttons */}
+        <LanguageSwitcher className="hidden shrink-0 lg:flex" />
+
         {/* Right CTA buttons */}
-        <div className="hidden items-center gap-3 lg:flex">
+        <div className="hidden shrink-0 items-center gap-3 whitespace-nowrap lg:flex">
           <Button
             asChild
             variant="primary"
             size="sm"
+            className="h-auto px-[14px] py-[10px] text-[12px]"
             data-ocid="nav.explore_control_room"
           >
-            <Link to="/control-room">Explore Control Room</Link>
+            <Link to="/control-room">{t("nav.exploreControlRoom")}</Link>
           </Button>
           <Button
             asChild
             variant="outline"
             size="sm"
+            className="h-auto px-[14px] py-[10px] text-[12px]"
             data-ocid="nav.request_pilot"
           >
-            <Link to="/pilot">Request a Pilot</Link>
+            <Link to="/pilot">{t("nav.requestPilot")}</Link>
           </Button>
         </div>
 
@@ -124,7 +136,7 @@ export function Navbar() {
           type="button"
           onClick={() => setOpen((v) => !v)}
           className="inline-flex h-11 w-11 items-center justify-center rounded-[4px] text-sidebar-foreground transition-colors hover:text-primary lg:hidden"
-          aria-label={open ? "Close menu" : "Open menu"}
+          aria-label={open ? t("nav.closeMenu") : t("nav.openMenu")}
           aria-expanded={open}
           data-ocid="nav.menu_toggle"
         >
@@ -148,9 +160,9 @@ export function Navbar() {
               className="whitespace-nowrap rounded-[4px] px-3 py-3 text-[13px] font-medium tracking-[0.04em] transition-colors hover:text-primary"
               activeProps={{ className: "text-primary" }}
               inactiveProps={{ className: "text-sidebar-foreground" }}
-              data-ocid={`nav.mobile.link.${link.label.toLowerCase().replace(/\s+/g, "_")}`}
+              data-ocid={`nav.mobile.link.${ocidSuffix(link.labelKey)}`}
             >
-              {link.label}
+              {t(link.labelKey)}
             </Link>
           ))}
 
@@ -160,7 +172,7 @@ export function Navbar() {
               className="group inline-flex items-center gap-1 whitespace-nowrap rounded-[4px] px-3 py-3 text-left text-[13px] font-medium tracking-[0.04em] text-sidebar-foreground transition-colors hover:text-primary data-[state=open]:text-primary"
               data-ocid="nav.mobile.dropdown.resources"
             >
-              {resourcesDropdown.label}
+              {t(resourcesDropdown.labelKey)}
               <ChevronDown className="h-3.5 w-3.5 transition-transform duration-200 group-data-[state=open]:rotate-180" />
             </DropdownMenuTrigger>
             <DropdownMenuContent
@@ -173,7 +185,7 @@ export function Navbar() {
               {resourcesDropdown.items.map((item) =>
                 item.external && item.href ? (
                   <DropdownMenuItem
-                    key={item.label}
+                    key={item.labelKey}
                     asChild
                     className="cursor-pointer text-[13px] font-medium tracking-[0.04em] transition-colors duration-200 hover:text-[#00C8FF] focus:text-[#00C8FF]"
                     style={dropdownItemStyle}
@@ -185,12 +197,12 @@ export function Navbar() {
                       rel="noreferrer"
                       onClick={() => setOpen(false)}
                     >
-                      {item.label}
+                      {t(item.labelKey)}
                     </a>
                   </DropdownMenuItem>
                 ) : (
                   <DropdownMenuItem
-                    key={item.label}
+                    key={item.labelKey}
                     asChild
                     className="cursor-pointer text-[13px] font-medium tracking-[0.04em] transition-colors duration-200 hover:text-[#00C8FF] focus:text-[#00C8FF]"
                     style={dropdownItemStyle}
@@ -200,13 +212,20 @@ export function Navbar() {
                       to={item.to ?? "/resources"}
                       onClick={() => setOpen(false)}
                     >
-                      {item.label}
+                      {t(item.labelKey)}
                     </Link>
                   </DropdownMenuItem>
                 ),
               )}
             </DropdownMenuContent>
           </DropdownMenu>
+
+          {/* Mobile language switcher */}
+          <LanguageSwitcher
+            className="px-3 py-3"
+            onSelect={() => setOpen(false)}
+          />
+
           <div className="mt-3 flex flex-col gap-3 border-t border-border pt-4">
             <Button
               asChild
@@ -215,7 +234,7 @@ export function Navbar() {
               data-ocid="nav.mobile.explore_control_room"
             >
               <Link to="/control-room" onClick={() => setOpen(false)}>
-                Explore Control Room
+                {t("nav.exploreControlRoom")}
               </Link>
             </Button>
             <Button
@@ -225,7 +244,7 @@ export function Navbar() {
               data-ocid="nav.mobile.request_pilot"
             >
               <Link to="/pilot" onClick={() => setOpen(false)}>
-                Request a Pilot
+                {t("nav.requestPilot")}
               </Link>
             </Button>
           </div>

@@ -1,8 +1,10 @@
 import App from "@/App";
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
+// Resources is a dropdown trigger, not a direct link, so it is asserted
+// separately from the plain nav links.
 const navLabels = [
   "HOME",
   "WHY SAAAS",
@@ -10,7 +12,6 @@ const navLabels = [
   "GOVERNANCE",
   "SOLUTIONS",
   "COUNTRY NODES",
-  "RESOURCES",
   "ABOUT",
 ];
 
@@ -100,13 +101,15 @@ describe("SAAAS marketing site", () => {
     ).toBeInTheDocument();
   });
 
-  it("navigates from the hero buttons to the platform and pilot pages", async () => {
+  it("navigates from the hero buttons to the pilot and control room pages", async () => {
     const user = userEvent.setup();
     render(<App />);
 
     await user.click(screen.getByTestId("home.hero.primary_button"));
     expect(
-      screen.getByRole("heading", { name: /^platform$/i, level: 1 }),
+      screen.getByRole("heading", {
+        name: /start with one bounded use case/i,
+      }),
     ).toBeInTheDocument();
 
     await user.click(screen.getByTestId("nav.request_pilot"));
@@ -123,6 +126,10 @@ describe("SAAAS marketing site", () => {
     for (const label of navLabels) {
       expect(desktopNavLink(label)).toBeInTheDocument();
     }
+    // Resources is a dropdown trigger rather than a direct link.
+    expect(screen.getByTestId("nav.dropdown.resources")).toHaveTextContent(
+      /resources/i,
+    );
     expect(screen.getByTestId("nav.explore_control_room")).toBeInTheDocument();
     expect(screen.getByTestId("nav.request_pilot")).toBeInTheDocument();
   });
@@ -154,8 +161,7 @@ describe("SAAAS marketing site", () => {
         link: "COUNTRY NODES",
         heading: /one saaas standard\. many sovereign nations/i,
       },
-      { link: "RESOURCES", heading: /^resources$/i },
-      { link: "ABOUT", heading: /building the sovereign ai layer/i },
+      { link: "ABOUT", heading: /building sovereign ai/i },
     ];
 
     for (const { link, heading } of cases) {
@@ -164,6 +170,16 @@ describe("SAAAS marketing site", () => {
         screen.getByRole("heading", { name: heading, level: 1 }),
       ).toBeInTheDocument();
     }
+
+    // Resources is reached through its dropdown's Resource Library item.
+    const trigger = screen.getByTestId("nav.dropdown.resources");
+    fireEvent.pointerDown(trigger, { button: 0, ctrlKey: false });
+    fireEvent.click(
+      screen.getByTestId("nav.dropdown.resources.resource_library"),
+    );
+    expect(
+      await screen.findByRole("heading", { name: /^resources$/i, level: 1 }),
+    ).toBeInTheDocument();
   });
 
   it("navigates to the pilot page via the nav CTA button", async () => {

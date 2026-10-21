@@ -1,19 +1,21 @@
 import { Button } from "@/components/Button";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Section } from "@/components/Section";
+import { useLanguage } from "@/i18n";
+import type { TranslationKey } from "@/i18n";
 import { Link } from "@tanstack/react-router";
 import { type Variants, motion } from "motion/react";
 
-const implementationSequence = [
-  "Requirements Alignment",
-  "Data Center Readiness Review",
-  "Hardware Candidate Selection",
-  "Base Platform Installation",
-  "Open-Weight Model Benchmark",
-  "SAAAS Platform Integration",
-  "Governance & Failure Testing",
-  "Controlled Pilot",
-  "Production Readiness Review",
+const implementationSequence: TranslationKey[] = [
+  "countryNodes.sequence.1",
+  "countryNodes.sequence.2",
+  "countryNodes.sequence.3",
+  "countryNodes.sequence.4",
+  "countryNodes.sequence.5",
+  "countryNodes.sequence.6",
+  "countryNodes.sequence.7",
+  "countryNodes.sequence.8",
+  "countryNodes.sequence.9",
 ];
 
 const futureNodes = [1, 2, 3, 4];
@@ -35,6 +37,8 @@ const item: Variants = {
 };
 
 export default function CountryNodesPage() {
+  const { t } = useLanguage();
+
   return (
     <>
       {/* HERO */}
@@ -54,14 +58,12 @@ export default function CountryNodesPage() {
             transition={{ duration: 0.5, ease: "easeOut" }}
             className="mx-auto max-w-3xl text-center"
           >
-            <Eyebrow>Country Nodes</Eyebrow>
+            <Eyebrow>{t("countryNodes.hero.eyebrow")}</Eyebrow>
             <h1 className="display-headline mt-6 text-4xl font-extrabold text-foreground md:text-5xl">
-              One SAAAS Standard. Many Sovereign Nations.
+              {t("countryNodes.hero.title")}
             </h1>
             <p className="subheadline mx-auto mt-6 max-w-[680px]">
-              SAAAS is designed to be replicated as locally operated Country
-              Nodes: common architecture and governance principles, adapted to
-              local infrastructure, law, customers, knowledge and operations.
+              {t("countryNodes.hero.subcopy")}
             </p>
           </motion.div>
         </div>
@@ -70,7 +72,7 @@ export default function CountryNodesPage() {
       {/* RWANDA REFERENCE NODE */}
       <Section alternate>
         <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow accent>Reference Node 01</Eyebrow>
+          <Eyebrow accent>{t("countryNodes.reference.eyebrow")}</Eyebrow>
         </div>
 
         <motion.div
@@ -83,7 +85,7 @@ export default function CountryNodesPage() {
           <motion.div variants={item}>
             <img
               src="/assets/generated/country-nodes-rwanda.dim_1200x800.png"
-              alt="Kigali, Rwanda skyline at night, the site of the first SAAAS reference node"
+              alt={t("countryNodes.rwanda.imageAlt")}
               className="h-full w-full rounded-[10px] object-cover"
               style={{
                 filter: "brightness(0.7) hue-rotate(180deg) saturate(0.8)",
@@ -97,22 +99,19 @@ export default function CountryNodesPage() {
               className="inline-block rounded-[4px] bg-primary px-3 py-1 text-xs font-bold uppercase tracking-[0.08em] text-primary-foreground"
               style={{ padding: "4px 12px" }}
             >
-              Reference Node 01
+              {t("countryNodes.reference.eyebrow")}
             </span>
             <h2 className="mt-5 font-display text-3xl font-extrabold uppercase tracking-[0.06em] text-foreground md:text-4xl">
-              Rwanda
+              {t("countryNodes.rwanda.name")}
             </h2>
             <span
               className="mt-4 inline-block rounded-[4px] border border-muted-foreground px-3 py-1 text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground"
               style={{ padding: "4px 12px" }}
             >
-              Planning / Implementation Baseline
+              {t("countryNodes.rwanda.status")}
             </span>
             <p className="mt-6 text-base leading-[1.75] text-card-foreground">
-              The first reference implementation for the SAAAS Country Node
-              model. Staged deployment following data-center readiness review,
-              hardware benchmarking, platform integration, governance testing
-              and controlled pilot.
+              {t("countryNodes.rwanda.body")}
             </p>
           </motion.div>
         </motion.div>
@@ -125,9 +124,9 @@ export default function CountryNodesPage() {
           viewport={{ once: true, margin: "-80px" }}
           className="mt-16 grid gap-3 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {implementationSequence.map((step, index) => (
+          {implementationSequence.map((stepKey, index) => (
             <motion.div
-              key={step}
+              key={stepKey}
               variants={item}
               className="flex items-start gap-4 rounded-[8px] border border-border bg-card p-5"
               data-ocid={`country_nodes.sequence.${index + 1}`}
@@ -136,7 +135,7 @@ export default function CountryNodesPage() {
                 {String(index + 1).padStart(2, "0")}
               </span>
               <p className="text-sm leading-[1.6] text-card-foreground">
-                {step}
+                {t(stepKey)}
               </p>
             </motion.div>
           ))}
@@ -146,9 +145,9 @@ export default function CountryNodesPage() {
       {/* FUTURE NODES */}
       <Section>
         <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Expanding the Network</Eyebrow>
+          <Eyebrow>{t("countryNodes.future.eyebrow")}</Eyebrow>
           <h2 className="mt-5 font-display text-3xl font-bold text-foreground md:text-4xl">
-            Future Country Nodes
+            {t("countryNodes.future.title")}
           </h2>
         </div>
 
@@ -164,7 +163,7 @@ export default function CountryNodesPage() {
             style={{ color: "#1A3A6B" }}
             aria-hidden="true"
           >
-            <title>Globe icon representing the expanding global network</title>
+            <title>{t("countryNodes.future.globeTitle")}</title>
             <circle cx="12" cy="12" r="10" />
             <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
             <path d="M2 12h20" />
@@ -189,11 +188,10 @@ export default function CountryNodesPage() {
                 className="inline-block rounded-[4px] border border-muted-foreground px-3 py-1 text-xs font-medium uppercase tracking-[0.08em] text-muted-foreground"
                 style={{ padding: "4px 12px" }}
               >
-                Prospective
+                {t("countryNodes.future.prospective")}
               </span>
               <p className="mt-5 text-sm leading-[1.75] text-card-foreground">
-                Details to be announced. Contact us to explore a Country Node in
-                your jurisdiction.
+                {t("countryNodes.future.body")}
               </p>
             </motion.div>
           ))}
@@ -211,7 +209,7 @@ export default function CountryNodesPage() {
             className="mx-auto max-w-3xl"
           >
             <h2 className="display-headline text-3xl font-extrabold text-foreground md:text-4xl">
-              Interested in a Country Node?
+              {t("countryNodes.cta.title")}
             </h2>
             <div className="mt-10 flex justify-center">
               <Button
@@ -220,7 +218,7 @@ export default function CountryNodesPage() {
                 data-ocid="country_nodes.cta.contact_us"
                 className="h-auto px-7 py-3.5 font-bold"
               >
-                <Link to="/pilot">Contact Us</Link>
+                <Link to="/pilot">{t("common.contactUs")}</Link>
               </Button>
             </div>
           </motion.div>

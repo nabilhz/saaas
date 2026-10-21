@@ -94,7 +94,9 @@ describe("Why SAAAS page content contract", () => {
     await navigateTo("WHY SAAAS");
     const main = mainContent();
     expect(
-      within(main).getByRole("heading", { name: /ready to own your ai\?/i }),
+      within(main).getByRole("heading", {
+        name: /start with one bounded use case/i,
+      }),
     ).toBeInTheDocument();
 
     const platformLink = within(main).getByRole("link", {

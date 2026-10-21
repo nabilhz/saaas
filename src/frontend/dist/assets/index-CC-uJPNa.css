@@ -1411,6 +1411,9 @@ video {
 .gap-6 {
   gap: 1.5rem;
 }
+.gap-\[14px\] {
+  gap: 14px;
+}
 .gap-y-0\.5 {
   row-gap: 0.125rem;
 }
@@ -1736,6 +1739,10 @@ video {
   padding-left: 2rem;
   padding-right: 2rem;
 }
+.px-\[14px\] {
+  padding-left: 14px;
+  padding-right: 14px;
+}
 .py-0\.5 {
   padding-top: 0.125rem;
   padding-bottom: 0.125rem;
@@ -1795,6 +1802,10 @@ video {
 .py-7 {
   padding-top: 1.75rem;
   padding-bottom: 1.75rem;
+}
+.py-\[10px\] {
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 .py-\[60px\] {
   padding-top: 60px;
@@ -1886,6 +1897,9 @@ video {
 }
 .text-\[0\.8rem\] {
   font-size: 0.8rem;
+}
+.text-\[12px\] {
+  font-size: 12px;
 }
 .text-\[13px\] {
   font-size: 13px;
@@ -2265,19 +2279,21 @@ video {
 .ease-linear {
   animation-timing-function: linear;
 }
-.transition-smooth {
+  .transition-smooth {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-/* Display headline — uppercase, heavy, wide tracking */
-.display-headline {
+
+  /* Display headline — uppercase, heavy, wide tracking */
+  .display-headline {
     font-family: var(--font-display);
     font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 0.06em;
     line-height: 1.05;
   }
-/* Eyebrow / label — small, uppercase, wide tracking, muted (13px) */
-.eyebrow {
+
+  /* Eyebrow / label — small, uppercase, wide tracking, muted (13px) */
+  .eyebrow {
     font-family: var(--font-display);
     font-weight: 600;
     text-transform: uppercase;
@@ -2285,8 +2301,9 @@ video {
     font-size: 0.8125rem; /* 13px */
     color: oklch(var(--muted-foreground));
   }
-/* Accent label — axis names, badges, card number labels, electric cyan (14px) */
-.accent-label {
+
+  /* Accent label — axis names, badges, card number labels, electric cyan (14px) */
+  .accent-label {
     font-family: var(--font-mono);
     font-weight: 600;
     text-transform: uppercase;
@@ -2294,27 +2311,30 @@ video {
     font-size: 0.875rem; /* 14px card number labels */
     color: oklch(var(--primary));
   }
-/* Section subheadline / description (18px) */
-.subheadline {
+
+  /* Section subheadline / description (18px) */
+  .subheadline {
     font-size: 1.125rem; /* 18px */
     line-height: 1.6;
     color: oklch(var(--card-foreground));
   }
-/* Section vertical padding tiers */
-.section-hero {
+
+  /* Section vertical padding tiers */
+  .section-hero {
     padding-top: 80px;
     padding-bottom: 80px;
   }
-.section-content {
+  .section-content {
     padding-top: 60px;
     padding-bottom: 60px;
   }
-.section-cta {
+  .section-cta {
     padding-top: 56px;
     padding-bottom: 56px;
   }
-/* Subtle cyan gradient for hero text accents */
-.text-gradient-cyan {
+
+  /* Subtle cyan gradient for hero text accents */
+  .text-gradient-cyan {
     background: linear-gradient(
       100deg,
       oklch(var(--primary)) 0%,
@@ -2324,11 +2344,12 @@ video {
     background-clip: text;
     color: transparent;
   }
-/* Card hover border accent */
-.card-accent-hover {
+
+  /* Card hover border accent */
+  .card-accent-hover {
     transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
-.card-accent-hover:hover {
+  .card-accent-hover:hover {
     border-color: oklch(var(--primary));
   }
 .\[--cell-size\:--spacing\(8\)\] {
@@ -2689,6 +2710,10 @@ video {
 
 .focus-visible\:ring-offset-background:focus-visible {
   --tw-ring-offset-color: oklch(var(--background));
+}
+
+.focus-visible\:ring-offset-sidebar:focus-visible {
+  --tw-ring-offset-color: oklch(var(--sidebar));
 }
 
 .active\:bg-sidebar-accent:active {

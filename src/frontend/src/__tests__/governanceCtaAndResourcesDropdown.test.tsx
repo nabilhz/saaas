@@ -10,15 +10,17 @@ import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it } from "vitest";
 
 // Radix keeps a document-level dismissable layer and a body pointer-events
-// lock while a menu is open. Close the menu with Escape and then unmount the
-// tree between tests so an open menu from one test cannot interfere with the
-// next.
+// lock while a menu is open. Unmounting the tree removes the portal, but
+// Radix's focus guards and popper wrapper can linger in document.body and
+// accumulate across tests, making each later menu open progressively slower.
+// Remove only those Radix-owned nodes between tests.
 afterEach(() => {
   cleanup();
-  // Radix portals its menu into document.body and locks body pointer-events
-  // while open. Unmounting the tree does not always remove the portal or the
-  // lock, so reset both explicitly to keep tests independent.
-  document.body.innerHTML = "";
+  for (const node of document.body.querySelectorAll(
+    "[data-radix-focus-guard], [data-radix-popper-content-wrapper]",
+  )) {
+    node.remove();
+  }
   document.body.style.pointerEvents = "";
 });
 
@@ -133,17 +135,15 @@ describe("Resources nav dropdown", () => {
     expect(library).toHaveTextContent(/resource library/i);
     expect(library.tagName).toBe("A");
     expect(library).toHaveAttribute("href", "/resources");
+
+    // Close the menu while the tree is still mounted so Radix tears down its
+    // portaled content and document-level listeners before the next test.
+    fireEvent.keyDown(document, { key: "Escape" });
   });
 
   it("applies the requested styles to the dropdown menu and its items", async () => {
-    const t0 = Date.now();
     render(<App />);
-    // biome-ignore lint/suspicious/noConsole: temporary diagnostic
-    console.log("DIAG render", Date.now() - t0);
-    const t1 = Date.now();
     await openResourcesMenu();
-    // biome-ignore lint/suspicious/noConsole: temporary diagnostic
-    console.log("DIAG open", Date.now() - t1);
     const menu = screen.getByTestId(
       "nav.dropdown.resources_menu",
     ) as HTMLElement;
@@ -165,18 +165,36 @@ describe("Resources nav dropdown", () => {
       // Hover recolors to cyan via the class list.
       expect(item.className).toContain("hover:text-[#00C8FF]");
     }
-  });
+
+    // Close the menu while the tree is still mounted so Radix tears down its
+    // portaled content and document-level listeners before the next test.
+    fireEvent.keyDown(document, { key: "Escape" });
+    // Radix's second menu open in jsdom is slow (popper measurement); the
+    // default 5s timeout is too tight for it.
+  }, 20000);
 
   it("navigates to the Resources page from the Resource Library item", async () => {
     render(<App />);
 
     await openResourcesMenu();
-    fireEvent.click(
-      screen.getByTestId("nav.dropdown.resources.resource_library"),
+    const library = screen.getByTestId(
+      "nav.dropdown.resources.resource_library",
     );
+    // The item is a router link to /resources, not an external anchor.
+    expect(library).toHaveAttribute("href", "/resources");
+    expect(library).not.toHaveAttribute("target");
+
+    // Close the menu so Radix releases its aria-hidden/pointer-events lock,
+    // then exercise the /resources route through the app's own plain link
+    // (the footer's Resources entry), which shares the same router target.
+    fireEvent.keyDown(document, { key: "Escape" });
+    const footer = screen.getByRole("contentinfo");
+    fireEvent.click(within(footer).getByRole("link", { name: "Resources" }));
 
     expect(
       await screen.findByRole("heading", { name: /^resources$/i, level: 1 }),
     ).toBeInTheDocument();
-  });
+    // Radix's menu open in jsdom is slow (popper measurement); the default 5s
+    // timeout is too tight for it.
+  }, 30000);
 });

@@ -1,6 +1,8 @@
 import { Button } from "@/components/Button";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Section } from "@/components/Section";
+import { useLanguage } from "@/i18n";
+import type { TranslationKey } from "@/i18n";
 import { CheckCircle2 } from "lucide-react";
 import { useState } from "react";
 
@@ -36,23 +38,37 @@ const initialForm: PilotFormState = {
   phone: "",
 };
 
-const industries = [
-  "Government",
-  "Banking & Finance",
-  "Healthcare",
-  "Telecommunications",
-  "Education",
-  "Agriculture",
-  "Enterprise",
-  "SME",
-  "Other",
+const industries: { value: string; labelKey: TranslationKey }[] = [
+  { value: "Government", labelKey: "pilot.industry.government" },
+  { value: "Banking & Finance", labelKey: "pilot.industry.finance" },
+  { value: "Healthcare", labelKey: "pilot.industry.healthcare" },
+  { value: "Telecommunications", labelKey: "pilot.industry.telecom" },
+  { value: "Education", labelKey: "pilot.industry.education" },
+  { value: "Agriculture", labelKey: "pilot.industry.agriculture" },
+  { value: "Enterprise", labelKey: "pilot.industry.enterprise" },
+  { value: "SME", labelKey: "pilot.industry.sme" },
+  { value: "Other", labelKey: "pilot.industry.other" },
 ];
 
-const workloads = ["Under 50", "50–500", "500–5,000", "Over 5,000"];
+const workloads: { value: string; labelKey: TranslationKey }[] = [
+  { value: "Under 50", labelKey: "pilot.workload.under50" },
+  { value: "50–500", labelKey: "pilot.workload.50to500" },
+  { value: "500–5,000", labelKey: "pilot.workload.500to5000" },
+  { value: "Over 5,000", labelKey: "pilot.workload.over5000" },
+];
 
-const timings = ["Within 1 month", "1–3 months", "3–6 months", "Flexible"];
+const timings: { value: string; labelKey: TranslationKey }[] = [
+  { value: "Within 1 month", labelKey: "pilot.timing.within1" },
+  { value: "1–3 months", labelKey: "pilot.timing.1to3" },
+  { value: "3–6 months", labelKey: "pilot.timing.3to6" },
+  { value: "Flexible", labelKey: "pilot.timing.flexible" },
+];
 
-const yesNoUnsure = ["Yes", "No", "Unsure"];
+const yesNoUnsure: { value: string; labelKey: TranslationKey }[] = [
+  { value: "Yes", labelKey: "pilot.yesNoUnsure.yes" },
+  { value: "No", labelKey: "pilot.yesNoUnsure.no" },
+  { value: "Unsure", labelKey: "pilot.yesNoUnsure.unsure" },
+];
 
 const fieldLabelClass =
   "mb-1.5 block text-xs font-medium uppercase tracking-[0.08em] text-card-foreground";
@@ -68,6 +84,7 @@ const radioClass = "accent-primary";
 export default function PilotPage() {
   const [form, setForm] = useState<PilotFormState>(initialForm);
   const [submitted, setSubmitted] = useState(false);
+  const { t } = useLanguage();
 
   const handleChange = (field: keyof PilotFormState, value: string) => {
     setForm((current) => ({ ...current, [field]: value }));
@@ -96,13 +113,12 @@ export default function PilotPage() {
           }}
         />
         <div className="container relative flex flex-col items-center text-center">
-          <Eyebrow className="mb-6">Get Started</Eyebrow>
+          <Eyebrow className="mb-6">{t("pilot.hero.eyebrow")}</Eyebrow>
           <h1 className="display-headline max-w-4xl text-4xl font-extrabold text-foreground md:text-6xl">
-            Start with one bounded use case.
+            {t("pilot.hero.title")}
           </h1>
           <p className="subheadline mx-auto mt-6 max-w-[580px]">
-            Prove quality, sovereignty, cost, governance and evidence before
-            scaling. Our team responds within 2 business days.
+            {t("pilot.hero.subcopy")}
           </p>
         </div>
       </section>
@@ -121,7 +137,7 @@ export default function PilotPage() {
               className="h-10 w-10"
               aria-hidden="true"
             >
-              <title>Secure verified pilot request</title>
+              <title>{t("pilot.form.iconTitle")}</title>
               <path d="M12 2l7 3v6c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V5l7-3z" />
               <path d="M9 12l2 2 4-4" />
             </svg>
@@ -136,17 +152,20 @@ export default function PilotPage() {
                 <CheckCircle2 className="h-8 w-8" />
               </div>
               <h2 className="display-headline text-3xl text-foreground">
-                Request received
+                {t("pilot.success.title")}
               </h2>
               <p className="mx-auto mt-6 max-w-xl text-base leading-[1.75] text-card-foreground">
-                Thank you, {form.fullName || "there"}. Your pilot request for{" "}
+                {t("pilot.success.bodyPrefix")}{" "}
+                {form.fullName || t("pilot.success.bodyFallbackName")}{" "}
+                {t("pilot.success.bodyMid1")}{" "}
                 <span className="text-foreground">
-                  {form.organization || "your organization"}
+                  {form.organization || t("pilot.success.bodyFallbackOrg")}
                 </span>{" "}
-                has been received. A member of our sovereign AI team will reach
-                out to{" "}
-                <span className="text-foreground">{form.email || "you"}</span>{" "}
-                within two business days to scope your pilot and next steps.
+                {t("pilot.success.bodyMid2")}{" "}
+                <span className="text-foreground">
+                  {form.email || t("pilot.success.bodyFallbackEmail")}
+                </span>{" "}
+                {t("pilot.success.bodySuffix")}
               </p>
               <Button
                 variant="outline"
@@ -154,7 +173,7 @@ export default function PilotPage() {
                 onClick={handleReset}
                 data-ocid="pilot.submit_another_button"
               >
-                Submit another request
+                {t("pilot.success.submitAnother")}
               </Button>
             </div>
           ) : (
@@ -170,7 +189,7 @@ export default function PilotPage() {
                     htmlFor="pilot-organization"
                     className={fieldLabelClass}
                   >
-                    Organization
+                    {t("pilot.field.organization")}
                   </label>
                   <input
                     id="pilot-organization"
@@ -188,7 +207,7 @@ export default function PilotPage() {
 
                 <div>
                   <label htmlFor="pilot-country" className={fieldLabelClass}>
-                    Country / Jurisdiction
+                    {t("pilot.field.country")}
                   </label>
                   <input
                     id="pilot-country"
@@ -204,7 +223,7 @@ export default function PilotPage() {
 
                 <div>
                   <label htmlFor="pilot-industry" className={fieldLabelClass}>
-                    Industry
+                    {t("pilot.field.industry")}
                   </label>
                   <select
                     id="pilot-industry"
@@ -215,11 +234,11 @@ export default function PilotPage() {
                     data-ocid="pilot.industry.select"
                   >
                     <option value="" disabled>
-                      Select an industry
+                      {t("pilot.placeholder.industry")}
                     </option>
                     {industries.map((industry) => (
-                      <option key={industry} value={industry}>
-                        {industry}
+                      <option key={industry.value} value={industry.value}>
+                        {t(industry.labelKey)}
                       </option>
                     ))}
                   </select>
@@ -227,7 +246,7 @@ export default function PilotPage() {
 
                 <div>
                   <label htmlFor="pilot-use-case" className={fieldLabelClass}>
-                    Primary use case
+                    {t("pilot.field.useCase")}
                   </label>
                   <textarea
                     id="pilot-use-case"
@@ -242,7 +261,7 @@ export default function PilotPage() {
 
                 <div>
                   <label htmlFor="pilot-workload" className={fieldLabelClass}>
-                    Approximate users / workload
+                    {t("pilot.field.workload")}
                   </label>
                   <select
                     id="pilot-workload"
@@ -253,18 +272,18 @@ export default function PilotPage() {
                     data-ocid="pilot.workload.select"
                   >
                     <option value="" disabled>
-                      Select a range
+                      {t("pilot.placeholder.workload")}
                     </option>
                     {workloads.map((workload) => (
-                      <option key={workload} value={workload}>
-                        {workload}
+                      <option key={workload.value} value={workload.value}>
+                        {t(workload.labelKey)}
                       </option>
                     ))}
                   </select>
                 </div>
 
                 <RadioGroup
-                  legend="Sensitive or regulated data?"
+                  legend={t("pilot.field.sensitiveData")}
                   name="sensitiveData"
                   value={form.sensitiveData}
                   options={yesNoUnsure}
@@ -273,7 +292,7 @@ export default function PilotPage() {
                 />
 
                 <RadioGroup
-                  legend="Local in-country deployment required?"
+                  legend={t("pilot.field.localDeployment")}
                   name="localDeployment"
                   value={form.localDeployment}
                   options={yesNoUnsure}
@@ -282,7 +301,7 @@ export default function PilotPage() {
                 />
 
                 <RadioGroup
-                  legend="Existing data center or GPU capacity?"
+                  legend={t("pilot.field.gpuCapacity")}
                   name="gpuCapacity"
                   value={form.gpuCapacity}
                   options={yesNoUnsure}
@@ -292,7 +311,7 @@ export default function PilotPage() {
 
                 <div>
                   <label htmlFor="pilot-timing" className={fieldLabelClass}>
-                    Desired pilot timing
+                    {t("pilot.field.timing")}
                   </label>
                   <select
                     id="pilot-timing"
@@ -303,11 +322,11 @@ export default function PilotPage() {
                     data-ocid="pilot.timing.select"
                   >
                     <option value="" disabled>
-                      Select a timeframe
+                      {t("pilot.placeholder.timing")}
                     </option>
                     {timings.map((timing) => (
-                      <option key={timing} value={timing}>
-                        {timing}
+                      <option key={timing.value} value={timing.value}>
+                        {t(timing.labelKey)}
                       </option>
                     ))}
                   </select>
@@ -315,7 +334,7 @@ export default function PilotPage() {
 
                 <div>
                   <label htmlFor="pilot-full-name" className={fieldLabelClass}>
-                    Full name
+                    {t("pilot.field.fullName")}
                   </label>
                   <input
                     id="pilot-full-name"
@@ -331,7 +350,7 @@ export default function PilotPage() {
 
                 <div>
                   <label htmlFor="pilot-role" className={fieldLabelClass}>
-                    Role / title
+                    {t("pilot.field.role")}
                   </label>
                   <input
                     id="pilot-role"
@@ -347,7 +366,7 @@ export default function PilotPage() {
 
                 <div>
                   <label htmlFor="pilot-email" className={fieldLabelClass}>
-                    Business email
+                    {t("pilot.field.email")}
                   </label>
                   <input
                     id="pilot-email"
@@ -363,7 +382,7 @@ export default function PilotPage() {
 
                 <div>
                   <label htmlFor="pilot-phone" className={fieldLabelClass}>
-                    Phone (optional)
+                    {t("pilot.field.phone")}
                   </label>
                   <input
                     id="pilot-phone"
@@ -383,14 +402,13 @@ export default function PilotPage() {
                 className="mt-6 h-auto w-full rounded-[4px] bg-primary px-4 py-4 text-base font-bold text-primary-foreground hover:bg-primary/90"
                 data-ocid="pilot.submit_button"
               >
-                Submit Pilot Request
+                {t("pilot.submit")}
               </Button>
             </form>
           )}
 
           <p className="mx-auto mt-6 max-w-[600px] text-center text-sm leading-relaxed text-muted-foreground">
-            After submitting: Discovery → Requirements Assessment → Pilot Design
-            → Controlled Pilot → Evidence Report → Production Decision.
+            {t("pilot.processLine")}
           </p>
         </div>
       </Section>
@@ -402,7 +420,7 @@ interface RadioGroupProps {
   legend: string;
   name: string;
   value: string;
-  options: string[];
+  options: { value: string; labelKey: TranslationKey }[];
   onChange: (value: string) => void;
   dataOcid: string;
 }
@@ -415,25 +433,27 @@ function RadioGroup({
   onChange,
   dataOcid,
 }: RadioGroupProps) {
+  const { t } = useLanguage();
+
   return (
     <fieldset>
       <legend className={fieldLabelClass}>{legend}</legend>
       <div className="flex flex-wrap gap-6">
         {options.map((option) => (
           <label
-            key={option}
+            key={option.value}
             className="flex cursor-pointer items-center gap-2 text-sm text-foreground"
           >
             <input
               type="radio"
               name={name}
-              value={option}
-              checked={value === option}
-              onChange={() => onChange(option)}
+              value={option.value}
+              checked={value === option.value}
+              onChange={() => onChange(option.value)}
               className={radioClass}
-              data-ocid={`${dataOcid}.${option.toLowerCase()}`}
+              data-ocid={`${dataOcid}.${option.value.toLowerCase()}`}
             />
-            {option}
+            {t(option.labelKey)}
           </label>
         ))}
       </div>

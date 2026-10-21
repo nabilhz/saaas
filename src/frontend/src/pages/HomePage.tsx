@@ -1,196 +1,131 @@
 import { Button } from "@/components/Button";
-import { Card } from "@/components/Card";
 import { Eyebrow } from "@/components/Eyebrow";
-import { Section } from "@/components/Section";
+import { useLanguage } from "@/i18n";
+import type { TranslationKey } from "@/i18n";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   BarChart3,
   Building2,
-  Cpu,
-  Globe2,
   GraduationCap,
   HeartPulse,
   Landmark,
   Leaf,
-  Lock,
-  Network,
   RadioTower,
-  ShieldCheck,
-  Workflow,
 } from "lucide-react";
 
-const capabilities = [
-  {
-    icon: Cpu,
-    title: "Custom Large Language Models",
-    copy: "Train, fine-tune, and deploy sovereign LLMs on infrastructure you control — never routed through third-party clouds.",
-  },
-  {
-    icon: Network,
-    title: "Sovereign Inference",
-    copy: "Run inference inside your own borders and data centers, with full auditability over every model, request, and output.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Governance & Oversight",
-    copy: "Policy-driven guardrails, human-in-the-loop review, and immutable audit trails that keep AI accountable to your mandate.",
-  },
-  {
-    icon: Workflow,
-    title: "Automated Workflows",
-    copy: "Orchestrate AI across your enterprise with deterministic pipelines, role-based access, and transparent, explainable decisions.",
-  },
+const flowSteps: TranslationKey[] = [
+  "home.flow.step1",
+  "home.flow.step2",
+  "home.flow.step3",
+  "home.flow.step4",
+  "home.flow.step5",
+  "home.flow.step6",
+  "home.flow.step7",
+  "home.flow.step8",
+  "home.flow.step9",
 ];
 
-const flowSteps = [
-  "Customer Mission",
-  "Authorized Knowledge",
-  "Policy-Aware Routing",
-  "AI Resource",
-  "X/Y/Z Observation",
-  "DriftShield",
-  "Authorization",
-  "Verified Execution",
-  "Evidence",
+const whySaaasBenefits: {
+  number: string;
+  titleKey: TranslationKey;
+  copyKey: TranslationKey;
+}[] = [
+  { number: "01", titleKey: "home.why.1.title", copyKey: "home.why.1.copy" },
+  { number: "02", titleKey: "home.why.2.title", copyKey: "home.why.2.copy" },
+  { number: "03", titleKey: "home.why.3.title", copyKey: "home.why.3.copy" },
+  { number: "04", titleKey: "home.why.4.title", copyKey: "home.why.4.copy" },
+  { number: "05", titleKey: "home.why.5.title", copyKey: "home.why.5.copy" },
+  { number: "06", titleKey: "home.why.6.title", copyKey: "home.why.6.copy" },
 ];
 
-const highlights = [
-  {
-    icon: Lock,
-    title: "Data Residency",
-    copy: "Your data never leaves your jurisdiction. Models train and serve on nodes you own, under the laws you answer to.",
-  },
-  {
-    icon: Globe2,
-    title: "Country Nodes",
-    copy: "Deploy dedicated national infrastructure with local compute, local governance, and full regulatory alignment.",
-  },
-  {
-    icon: ShieldCheck,
-    title: "Zero-Trust Security",
-    copy: "End-to-end encryption, hardware-backed keys, and continuous verification protect every layer of the stack.",
-  },
+const governanceAxes: {
+  axis: string;
+  titleKey: TranslationKey;
+  copyKey: TranslationKey;
+}[] = [
+  { axis: "X", titleKey: "home.axis.x.title", copyKey: "home.axis.x.copy" },
+  { axis: "Y", titleKey: "home.axis.y.title", copyKey: "home.axis.y.copy" },
+  { axis: "Z", titleKey: "home.axis.z.title", copyKey: "home.axis.z.copy" },
 ];
 
-const whySaaasBenefits = [
+const sovereigntyDimensions: {
+  number: string;
+  nameKey: TranslationKey;
+  questionKey: TranslationKey;
+}[] = [
   {
     number: "01",
-    title: "Sovereign",
-    copy: "Keep sensitive workloads, operational state and evidence within required jurisdictional boundaries where the deployment calls for it.",
+    nameKey: "home.sovereignty.1.name",
+    questionKey: "home.sovereignty.1.question",
   },
   {
     number: "02",
-    title: "Economical",
-    copy: "Use an appropriate authorized AI resource for each task rather than defaulting every workload to the most expensive option.",
+    nameKey: "home.sovereignty.2.name",
+    questionKey: "home.sovereignty.2.question",
   },
   {
     number: "03",
-    title: "Model-Agnostic",
-    copy: "Combine locally deployed open-weight resources with approved external or specialized AI services where policy permits.",
+    nameKey: "home.sovereignty.3.name",
+    questionKey: "home.sovereignty.3.question",
   },
   {
     number: "04",
-    title: "Locally Informed",
-    copy: "Ground services in authorized enterprise, institutional and local knowledge.",
+    nameKey: "home.sovereignty.4.name",
+    questionKey: "home.sovereignty.4.question",
   },
   {
     number: "05",
-    title: "Governed",
-    copy: "Observe autonomous operation independently of the model and retain defined human and organizational authority.",
-  },
-  {
-    number: "06",
-    title: "Managed",
-    copy: "SAAAS manages the infrastructure, models, governance, monitoring and service operations.",
+    nameKey: "home.sovereignty.5.name",
+    questionKey: "home.sovereignty.5.question",
   },
 ];
 
-const governanceAxes = [
-  {
-    axis: "X",
-    title: "Behavioral Divergence",
-    copy: "How much is current behavior departing from a defined reference under comparable conditions? X is evidence, not itself the ALLOW/BLOCK decision.",
-  },
-  {
-    axis: "Y",
-    title: "Genesis Continuity",
-    copy: "Can the current governed state still be traced to its authorized origin?",
-  },
-  {
-    axis: "Z",
-    title: "Inheritance Continuity",
-    copy: "Has state evolved through a valid and continuous sequence of authorized transitions?",
-  },
-];
-
-const sovereigntyDimensions = [
-  {
-    number: "01",
-    name: "Data",
-    question: "Where may the information reside?",
-  },
-  {
-    number: "02",
-    name: "Compute",
-    question: "Where may inference occur?",
-  },
-  {
-    number: "03",
-    name: "Knowledge",
-    question: "Who controls the proprietary or local knowledge supplied to AI?",
-  },
-  {
-    number: "04",
-    name: "Governance",
-    question: "Who determines what autonomous AI is permitted to do?",
-  },
-  {
-    number: "05",
-    name: "Execution",
-    question: "Who authorizes consequential action and verifies what happened?",
-  },
-];
-
-const sectorCards = [
+const sectorCards: {
+  icon: typeof Landmark;
+  nameKey: TranslationKey;
+  copyKey: TranslationKey;
+}[] = [
   {
     icon: Landmark,
-    name: "Government",
-    copy: "Institutional AI without surrendering national control.",
+    nameKey: "home.sector.government",
+    copyKey: "home.sector.government.copy",
   },
   {
     icon: BarChart3,
-    name: "Banking & Finance",
-    copy: "Governed automation with traceable decisions and escalation.",
+    nameKey: "home.sector.finance",
+    copyKey: "home.sector.finance.copy",
   },
   {
     icon: HeartPulse,
-    name: "Healthcare",
-    copy: "AI assistance with sensitive-data controls and defined human authority.",
+    nameKey: "home.sector.healthcare",
+    copyKey: "home.sector.healthcare.copy",
   },
   {
     icon: RadioTower,
-    name: "Telecommunications",
-    copy: "AI-enabled customer and operational workflows at scale.",
+    nameKey: "home.sector.telecom",
+    copyKey: "home.sector.telecom.copy",
   },
   {
     icon: GraduationCap,
-    name: "Education",
-    copy: "Affordable governed AI capacity for institutions, teachers and learners.",
+    nameKey: "home.sector.education",
+    copyKey: "home.sector.education.copy",
   },
   {
     icon: Leaf,
-    name: "Agriculture",
-    copy: "Localized AI knowledge and services for field and enterprise use.",
+    nameKey: "home.sector.agriculture",
+    copyKey: "home.sector.agriculture.copy",
   },
   {
     icon: Building2,
-    name: "Enterprise & SMEs",
-    copy: "Managed AI capability without building an internal AI infrastructure company.",
+    nameKey: "home.sector.enterprise",
+    copyKey: "home.sector.enterprise.copy",
   },
 ];
 
 export default function HomePage() {
+  const { t } = useLanguage();
+
   return (
     <>
       {/* Hero */}
@@ -204,21 +139,16 @@ export default function HomePage() {
         />
 
         <div className="relative mx-auto flex max-w-4xl flex-col items-center px-6 py-20 text-center">
-          <Eyebrow>SAAAS · SOVEREIGN AI AS A SERVICE</Eyebrow>
+          <Eyebrow>{t("home.hero.eyebrow")}</Eyebrow>
           <h1 className="display-headline mt-6 text-4xl tracking-[0.05em] text-foreground md:text-6xl">
-            Sovereign AI.
+            {t("home.hero.title1")}
             <br />
-            Governed.
+            {t("home.hero.title2")}
             <br />
-            Managed.
+            {t("home.hero.title3")}
           </h1>
           <p className="subheadline mx-auto mt-8 max-w-[680px]">
-            Access AI resources appropriate to your organization without
-            surrendering control of your data, institutional knowledge,
-            jurisdiction or operational authority. SAAAS is a managed AI utility
-            combining sovereign deployment options, policy-aware model
-            selection, enterprise knowledge, independent AI governance,
-            controlled execution and operational evidence.
+            {t("home.hero.subcopy")}
           </p>
           <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:gap-4">
             <Button
@@ -227,8 +157,8 @@ export default function HomePage() {
               className="h-auto px-7 py-3.5 font-bold"
               data-ocid="home.hero.primary_button"
             >
-              <Link to="/platform">
-                Request a Sovereign AI Pilot
+              <Link to="/pilot">
+                {t("home.hero.primaryButton")}
                 <ArrowRight className="h-4 w-4" />
               </Link>
             </Button>
@@ -239,12 +169,11 @@ export default function HomePage() {
               className="border-[1.5px]"
               data-ocid="home.hero.secondary_button"
             >
-              <Link to="/control-room">Explore Control Room</Link>
+              <Link to="/control-room">{t("common.exploreControlRoom")}</Link>
             </Button>
           </div>
           <p className="mt-6 text-xs tracking-[0.08em] text-[#5A6A80]">
-            Your Data · Your Knowledge · Your Jurisdiction · Your Governance ·
-            Appropriate AI Resources.
+            {t("home.hero.microline")}
           </p>
         </div>
       </section>
@@ -253,20 +182,20 @@ export default function HomePage() {
       <section className="bg-muted py-[60px]">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
-            <Eyebrow>The Saaas Flow</Eyebrow>
+            <Eyebrow>{t("home.flow.eyebrow")}</Eyebrow>
           </div>
 
           <div className="mt-14 flex flex-col items-center gap-3 md:flex-row md:flex-wrap md:justify-center md:gap-0">
-            {flowSteps.map((step, i) => (
+            {flowSteps.map((stepKey, i) => (
               <div
-                key={step}
+                key={stepKey}
                 className="flex flex-col items-center md:flex-row"
               >
                 <div
                   className="rounded-[4px] border border-border bg-card px-4 py-3 text-center text-xs font-semibold uppercase tracking-[0.06em] text-foreground"
                   data-ocid="home.flow.step"
                 >
-                  {step}
+                  {t(stepKey)}
                 </div>
                 {i < flowSteps.length - 1 && (
                   <ArrowRight
@@ -279,9 +208,7 @@ export default function HomePage() {
           </div>
 
           <p className="mx-auto mt-12 max-w-[600px] text-center text-base italic leading-[1.75] text-card-foreground">
-            The customer brings the mission. SAAAS supplies governed access to
-            appropriate AI resources, authorized knowledge, independent
-            observation, controlled execution and evidence.
+            {t("home.flow.caption")}
           </p>
         </div>
       </section>
@@ -301,7 +228,7 @@ export default function HomePage() {
         />
         <div className="relative container">
           <div className="mx-auto max-w-3xl text-center">
-            <Eyebrow>Why Saaas</Eyebrow>
+            <Eyebrow>{t("home.why.eyebrow")}</Eyebrow>
           </div>
 
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -315,10 +242,10 @@ export default function HomePage() {
                   {benefit.number}
                 </span>
                 <h3 className="mt-3 text-lg font-bold uppercase tracking-[0.04em] text-foreground">
-                  {benefit.title}
+                  {t(benefit.titleKey)}
                 </h3>
                 <p className="mt-3 text-sm leading-[1.7] text-card-foreground">
-                  {benefit.copy}
+                  {t(benefit.copyKey)}
                 </p>
               </div>
             ))}
@@ -332,23 +259,19 @@ export default function HomePage() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
               <h2 className="display-headline text-3xl font-extrabold uppercase tracking-[0.05em] text-foreground md:text-5xl">
-                AI should not govern itself.
+                {t("home.governance.title")}
               </h2>
               <p className="mt-6 max-w-xl text-base leading-[1.75] text-card-foreground">
-                Oblique AI Governance independently observes changes, influences
-                and state transitions that may alter the original authorized
-                intent of an autonomous process as work moves through models,
-                agents, knowledge sources, tools and execution environments.
+                {t("home.governance.body")}
               </p>
               <p className="mt-6 max-w-xl text-base font-semibold text-primary">
-                See what your autonomous AI is doing. Know where it came from.
-                Know how it changed. Decide whether it should proceed.
+                {t("home.governance.emphasis")}
               </p>
             </div>
             <div className="relative">
               <img
                 src="/assets/generated/governance-control-room.dim_1200x900.png"
-                alt="Futuristic control room with server infrastructure lit by cyan ambient lighting"
+                alt={t("home.governance.imageAlt")}
                 className="w-full rounded-[10px] object-cover"
                 style={{ boxShadow: "0 0 24px rgba(0,200,255,0.15)" }}
               />
@@ -364,10 +287,10 @@ export default function HomePage() {
               >
                 <span className="accent-label">{axis.axis}</span>
                 <h3 className="mt-3 text-base font-bold uppercase tracking-[0.04em] text-foreground">
-                  {axis.title}
+                  {t(axis.titleKey)}
                 </h3>
                 <p className="mt-3 text-sm leading-[1.7] text-card-foreground">
-                  {axis.copy}
+                  {t(axis.copyKey)}
                 </p>
               </div>
             ))}
@@ -379,14 +302,14 @@ export default function HomePage() {
       <section className="bg-background py-[60px]">
         <div className="container">
           <div className="mx-auto max-w-3xl text-center">
-            <Eyebrow>Sovereign AI Defined</Eyebrow>
+            <Eyebrow>{t("home.sovereignty.eyebrow")}</Eyebrow>
           </div>
 
           <div className="mt-14 grid items-center gap-12 lg:grid-cols-2">
             <div className="relative">
               <img
                 src="/assets/generated/sovereignty-infrastructure.dim_1200x900.png"
-                alt="Institutional data center with dark server racks lit by subtle cyan highlights"
+                alt={t("home.sovereignty.imageAlt")}
                 className="w-full rounded-[10px] object-cover"
                 style={{ boxShadow: "0 0 20px rgba(0,200,255,0.12)" }}
               />
@@ -405,10 +328,10 @@ export default function HomePage() {
                     </span>
                     <div>
                       <h3 className="text-base font-bold uppercase tracking-[0.04em] text-foreground">
-                        {dim.name}
+                        {t(dim.nameKey)}
                       </h3>
                       <p className="mt-1 text-sm leading-[1.7] text-card-foreground">
-                        {dim.question}
+                        {t(dim.questionKey)}
                       </p>
                     </div>
                   </li>
@@ -417,9 +340,7 @@ export default function HomePage() {
 
               <div className="mt-8 rounded-lg border border-border bg-card px-7 py-5 text-center">
                 <p className="text-sm italic leading-[1.7] text-card-foreground">
-                  Sovereignty is not merely where the server sits. It is
-                  meaningful control across the path from information to AI
-                  decision to consequential action.
+                  {t("home.sovereignty.quote")}
                 </p>
               </div>
             </div>
@@ -442,16 +363,16 @@ export default function HomePage() {
         />
         <div className="relative container">
           <div className="mx-auto max-w-3xl text-center">
-            <Eyebrow>One Infrastructure. Many Missions.</Eyebrow>
+            <Eyebrow>{t("home.sectors.eyebrow")}</Eyebrow>
             <h2 className="mt-5 text-3xl font-bold text-foreground md:text-4xl">
-              Sectors We Serve
+              {t("home.sectors.title")}
             </h2>
           </div>
 
           <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {sectorCards.map((sector) => (
               <div
-                key={sector.name}
+                key={sector.nameKey}
                 className="card-accent-hover rounded-lg border border-border bg-card p-6"
                 data-ocid="home.sector.card"
               >
@@ -460,10 +381,10 @@ export default function HomePage() {
                   aria-hidden="true"
                 />
                 <h3 className="mt-4 text-base font-bold uppercase tracking-[0.04em] text-foreground">
-                  {sector.name}
+                  {t(sector.nameKey)}
                 </h3>
                 <p className="mt-2 text-sm leading-[1.7] text-card-foreground">
-                  {sector.copy}
+                  {t(sector.copyKey)}
                 </p>
               </div>
             ))}
@@ -484,11 +405,10 @@ export default function HomePage() {
               aria-hidden="true"
             />
             <h2 className="display-headline mt-10 text-3xl font-extrabold uppercase tracking-[0.05em] text-foreground md:text-5xl">
-              Start with one bounded use case.
+              {t("home.finalCta.title")}
             </h2>
             <p className="subheadline mx-auto mt-6 max-w-[560px]">
-              Prove quality, sovereignty, cost, governance and evidence before
-              scaling.
+              {t("home.finalCta.subcopy")}
             </p>
             <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
               <Button
@@ -497,7 +417,7 @@ export default function HomePage() {
                 className="h-auto px-7 py-3.5 font-bold"
                 data-ocid="home.final_cta.primary_button"
               >
-                <Link to="/platform">Request a Pilot</Link>
+                <Link to="/pilot">{t("home.finalCta.primaryButton")}</Link>
               </Button>
               <Button
                 asChild
@@ -506,129 +426,12 @@ export default function HomePage() {
                 className="h-auto border-[1.5px] px-7 py-3.5 font-bold"
                 data-ocid="home.final_cta.secondary_button"
               >
-                <Link to="/pilot">Talk to SAAAS</Link>
+                <Link to="/pilot">{t("home.finalCta.secondaryButton")}</Link>
               </Button>
             </div>
           </div>
         </div>
       </section>
-
-      {/* Value proposition */}
-      <Section>
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Why Sovereign AI</Eyebrow>
-          <h2 className="mt-5 text-3xl font-semibold text-foreground md:text-4xl">
-            AI should answer to you — not the other way around
-          </h2>
-          <p className="subheadline mx-auto mt-6 max-w-2xl">
-            Most enterprises run their most sensitive AI workloads on foreign
-            clouds, surrendering data, models, and decision-making to third
-            parties. SAAAS returns that control to you. We give governments and
-            enterprises the infrastructure, governance, and expertise to own
-            their AI end to end — from raw data to deployed model — while
-            staying fully compliant with the laws and values of your nation.
-          </p>
-        </div>
-      </Section>
-
-      {/* Capability cards */}
-      <Section alternate>
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow accent>Capabilities</Eyebrow>
-          <h2 className="mt-5 text-3xl font-semibold text-foreground md:text-4xl">
-            A complete sovereign AI stack
-          </h2>
-          <p className="subheadline mx-auto mt-6 max-w-2xl">
-            Every capability you need to build, govern, and scale AI on
-            infrastructure you control.
-          </p>
-        </div>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {capabilities.map((cap) => (
-            <Card
-              key={cap.title}
-              className="flex flex-col"
-              data-ocid="home.capability.card"
-            >
-              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-[4px] border border-primary/30 bg-primary/10 text-primary">
-                <cap.icon className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-semibold uppercase tracking-[0.04em] text-foreground">
-                {cap.title}
-              </h3>
-              <p className="mt-3 text-sm leading-[1.75] text-card-foreground">
-                {cap.copy}
-              </p>
-            </Card>
-          ))}
-        </div>
-      </Section>
-
-      {/* Platform highlights */}
-      <Section>
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow>Platform Highlights</Eyebrow>
-          <h2 className="mt-5 text-3xl font-semibold text-foreground md:text-4xl">
-            Built for sovereignty, engineered for scale
-          </h2>
-          <p className="subheadline mx-auto mt-6 max-w-2xl">
-            The SAAAS platform is architected around one principle: your AI
-            stays yours. Here is how we deliver on that promise.
-          </p>
-        </div>
-
-        <div className="mt-14 grid gap-6 md:grid-cols-3">
-          {highlights.map((item) => (
-            <Card
-              key={item.title}
-              className="flex flex-col"
-              data-ocid="home.highlight.card"
-            >
-              <div className="mb-5 inline-flex h-12 w-12 items-center justify-center rounded-[4px] border border-primary/30 bg-primary/10 text-primary">
-                <item.icon className="h-6 w-6" />
-              </div>
-              <h3 className="text-lg font-semibold uppercase tracking-[0.04em] text-foreground">
-                {item.title}
-              </h3>
-              <p className="mt-3 text-sm leading-[1.75] text-card-foreground">
-                {item.copy}
-              </p>
-            </Card>
-          ))}
-        </div>
-      </Section>
-
-      {/* CTA band */}
-      <Section alternate variant="cta">
-        <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow accent>Get Started</Eyebrow>
-          <h2 className="mt-5 text-3xl font-semibold text-foreground md:text-4xl">
-            Take command of your AI today
-          </h2>
-          <p className="subheadline mx-auto mt-6 max-w-2xl">
-            Explore the control room to see how SAAAS puts sovereignty back in
-            your hands — or request a pilot and deploy your first sovereign
-            model in weeks, not years.
-          </p>
-          <div className="mt-10 flex flex-col justify-center gap-4 sm:flex-row">
-            <Button asChild size="lg" data-ocid="home.cta.primary_button">
-              <Link to="/control-room">
-                Explore Control Room
-                <ArrowRight className="h-4 w-4" />
-              </Link>
-            </Button>
-            <Button
-              asChild
-              size="lg"
-              variant="outline"
-              data-ocid="home.cta.secondary_button"
-            >
-              <Link to="/pilot">Request a Pilot</Link>
-            </Button>
-          </div>
-        </div>
-      </Section>
     </>
   );
 }

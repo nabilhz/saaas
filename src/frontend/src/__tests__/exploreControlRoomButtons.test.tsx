@@ -3,10 +3,12 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
-// Cover for the five 'Explore Control Room' call-to-action buttons across the
-// site. Their destination is now /control-room (retargeted from /platform and
+// Cover for the 'Explore Control Room' call-to-action buttons across the
+// site. Their destination is /control-room (retargeted from /platform and
 // /pilot). This suite protects the accepted behavior: every button stays
-// present, is a real link, and points at /control-room.
+// present, is a real link, and points at /control-room. The Home page's own
+// bottom CTA band was removed by the accepted change, so only the nav, hero,
+// and governance buttons remain.
 
 describe("Explore Control Room buttons", () => {
   it("renders the desktop navbar CTA as a link to /control-room", async () => {
@@ -30,14 +32,6 @@ describe("Explore Control Room buttons", () => {
   it("renders the home hero secondary button as an Explore Control Room link to /control-room", () => {
     render(<App />);
     const link = screen.getByTestId("home.hero.secondary_button");
-    expect(link.tagName).toBe("A");
-    expect(link).toHaveAttribute("href", "/control-room");
-    expect(link).toHaveTextContent(/explore control room/i);
-  });
-
-  it("renders the home CTA primary button as an Explore Control Room link to /control-room", async () => {
-    render(<App />);
-    const link = await screen.findByTestId("home.cta.primary_button");
     expect(link.tagName).toBe("A");
     expect(link).toHaveAttribute("href", "/control-room");
     expect(link).toHaveTextContent(/explore control room/i);

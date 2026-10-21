@@ -101,15 +101,12 @@ describe("FINAL CTA band", () => {
 });
 
 describe("New sections placement", () => {
-  it("renders the three new sections after the axis cards and before the value proposition", async () => {
+  it("renders the three new sections after the axis cards, ending with the final CTA band", async () => {
     render(<App />);
 
-    // Anchor: the last axis card heading and the value proposition headline.
+    // Anchor: the last axis card heading.
     const axisCard = await screen.findByRole("heading", {
       name: /Inheritance Continuity/i,
-    });
-    const valueProp = screen.getByRole("heading", {
-      name: /AI should answer to you — not the other way around/i,
     });
 
     const dimensions = screen.getByText("Sovereign AI Defined");
@@ -120,7 +117,9 @@ describe("New sections placement", () => {
       name: /Start with one bounded use case/i,
     });
 
-    const ordered = [axisCard, dimensions, solutions, finalCta, valueProp];
+    // The accepted change removes every Home section below the final CTA band,
+    // so the band is the last of these sections in document order.
+    const ordered = [axisCard, dimensions, solutions, finalCta];
     for (let i = 0; i < ordered.length - 1; i++) {
       expect(
         ordered[i].compareDocumentPosition(ordered[i + 1]) &

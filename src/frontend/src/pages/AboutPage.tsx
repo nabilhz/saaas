@@ -3,6 +3,8 @@ import { Card } from "@/components/Card";
 import { Eyebrow } from "@/components/Eyebrow";
 import { PageHeader } from "@/components/PageHeader";
 import { Section } from "@/components/Section";
+import { useLanguage } from "@/i18n";
+import type { TranslationKey } from "@/i18n";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -14,86 +16,74 @@ import {
   Workflow,
 } from "lucide-react";
 
-const values = [
+const values: {
+  icon: typeof Lock;
+  titleKey: TranslationKey;
+  bodyKey: TranslationKey;
+}[] = [
   {
     icon: Lock,
-    title: "Sovereignty First",
-    body: "We believe intelligence is an asset you should own, not a service you rent. Every decision we make starts with returning control to the people and nations we serve.",
+    titleKey: "about.value.1.title",
+    bodyKey: "about.value.1.body",
   },
   {
     icon: ShieldCheck,
-    title: "Trust Through Transparency",
-    body: "Sovereign AI demands accountability. We build with open, auditable processes so every model, decision, and pipeline can be examined and verified by those who depend on it.",
+    titleKey: "about.value.2.title",
+    bodyKey: "about.value.2.body",
   },
   {
     icon: Users,
-    title: "Human Oversight",
-    body: "Technology should amplify human judgment, never replace it. We keep people in command of every critical decision, with governance that is explainable and accountable.",
+    titleKey: "about.value.3.title",
+    bodyKey: "about.value.3.body",
   },
   {
     icon: Globe2,
-    title: "National Alignment",
-    body: "Infrastructure must respect the laws, values, and borders of the communities it serves. We design for data residency and regulatory alignment from the ground up.",
+    titleKey: "about.value.4.title",
+    bodyKey: "about.value.4.body",
   },
   {
     icon: Compass,
-    title: "Long-Term Stewardship",
-    body: "We build infrastructure meant to endure for generations. Our work is measured not in quarters, but in the lasting resilience and independence it creates.",
+    titleKey: "about.value.5.title",
+    bodyKey: "about.value.5.body",
   },
   {
     icon: Workflow,
-    title: "Engineering Excellence",
-    body: "Sovereignty is only as strong as the systems behind it. We hold ourselves to the highest standards of security, performance, and reliability in everything we ship.",
+    titleKey: "about.value.6.title",
+    bodyKey: "about.value.6.body",
   },
 ];
 
 export default function AboutPage() {
+  const { t } = useLanguage();
+
   return (
     <>
       <Section variant="hero">
         <PageHeader
-          eyebrow="About SAAAS"
+          eyebrow={t("about.hero.eyebrow")}
           title={
             <>
-              Building the{" "}
-              <span className="text-gradient-cyan">Sovereign AI</span> Layer
+              {t("about.hero.title1")}{" "}
+              <span className="text-gradient-cyan">
+                {t("about.hero.title2")}
+              </span>
             </>
           }
-          subcopy="SAAAS exists to give governments and enterprises complete control over their artificial intelligence — from the silicon that powers it to the models that run on it. We are a team of engineers, researchers, and policy thinkers building the infrastructure for a more independent digital future."
+          subcopy={t("about.hero.subcopy")}
         />
       </Section>
 
       {/* Company story */}
       <Section alternate>
         <div className="mx-auto max-w-3xl">
-          <Eyebrow accent>Our Story</Eyebrow>
+          <Eyebrow accent>{t("about.story.eyebrow")}</Eyebrow>
           <h2 className="mt-5 text-2xl font-semibold text-foreground md:text-3xl">
-            Founded on a simple conviction
+            {t("about.story.title")}
           </h2>
           <div className="mt-8 space-y-6 text-base leading-[1.75] text-card-foreground md:text-lg">
-            <p>
-              SAAAS was founded on a conviction that has only grown stronger:
-              the most consequential technology of our era should not be
-              controlled by a handful of distant corporations. As enterprises
-              and nations began depending on AI for their most sensitive work,
-              we saw a dangerous concentration of power — models, data, and
-              decision-making flowing through infrastructure owned by others.
-            </p>
-            <p>
-              We started SAAAS to offer a different path. Our founders came from
-              high-performance computing, national security, and enterprise
-              infrastructure with a shared belief that sovereignty is not a
-              luxury but a requirement. We set out to build a platform where
-              organizations could train, deploy, and govern their own AI on
-              infrastructure they control — without sacrificing capability,
-              security, or performance.
-            </p>
-            <p>
-              Today, SAAAS powers sovereign AI programs across governments and
-              regulated industries. We remain independent, mission-driven, and
-              relentlessly focused on one goal: putting the power of
-              intelligence back in the hands of those who own it.
-            </p>
+            <p>{t("about.story.p1")}</p>
+            <p>{t("about.story.p2")}</p>
+            <p>{t("about.story.p3")}</p>
           </div>
         </div>
       </Section>
@@ -101,38 +91,28 @@ export default function AboutPage() {
       {/* Mission */}
       <Section>
         <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow accent>Our Mission</Eyebrow>
+          <Eyebrow accent>{t("about.mission.eyebrow")}</Eyebrow>
           <h2 className="mt-5 text-2xl font-semibold text-foreground md:text-3xl">
-            Return control of AI to its rightful owners
+            {t("about.mission.title")}
           </h2>
-          <p className="subheadline mt-6">
-            Our mission is to make sovereign AI the default — to give every
-            government and enterprise the infrastructure, governance, and
-            expertise to own their intelligence end to end. We believe that when
-            data stays in your perimeter, models answer to your mandate, and
-            decisions remain under human oversight, technology serves people
-            rather than the other way around.
-          </p>
+          <p className="subheadline mt-6">{t("about.mission.body")}</p>
         </div>
       </Section>
 
       {/* Values */}
       <Section alternate>
         <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow accent>Our Values</Eyebrow>
+          <Eyebrow accent>{t("about.values.eyebrow")}</Eyebrow>
           <h2 className="mt-5 text-2xl font-semibold text-foreground md:text-3xl">
-            The principles that guide us
+            {t("about.values.title")}
           </h2>
-          <p className="subheadline mt-6">
-            These values shape every product decision, every partnership, and
-            every line of code we write.
-          </p>
+          <p className="subheadline mt-6">{t("about.values.body")}</p>
         </div>
 
         <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {values.map((value) => (
             <Card
-              key={value.title}
+              key={value.titleKey}
               className="flex flex-col"
               data-ocid="about.value.card"
             >
@@ -140,10 +120,10 @@ export default function AboutPage() {
                 <value.icon className="h-6 w-6" aria-hidden="true" />
               </div>
               <h3 className="text-lg font-semibold uppercase tracking-[0.04em] text-foreground">
-                {value.title}
+                {t(value.titleKey)}
               </h3>
               <p className="mt-3 text-sm leading-[1.75] text-card-foreground">
-                {value.body}
+                {t(value.bodyKey)}
               </p>
             </Card>
           ))}
@@ -153,19 +133,15 @@ export default function AboutPage() {
       {/* CTA */}
       <Section variant="cta">
         <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow accent>Work With Us</Eyebrow>
+          <Eyebrow accent>{t("about.cta.eyebrow")}</Eyebrow>
           <h2 className="mt-5 text-2xl font-semibold text-foreground md:text-3xl">
-            Join us in building a sovereign future
+            {t("about.cta.title")}
           </h2>
-          <p className="subheadline mt-6">
-            Whether you are a government, an enterprise, or a partner who shares
-            our mission, we would love to work with you. Explore the platform or
-            request a pilot to see sovereign AI in action.
-          </p>
+          <p className="subheadline mt-6">{t("about.cta.body")}</p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="lg" data-ocid="about.cta.primary_button">
               <Link to="/platform">
-                Explore the Platform
+                {t("common.explorePlatform")}
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </Button>
@@ -175,7 +151,7 @@ export default function AboutPage() {
               variant="outline"
               data-ocid="about.cta.secondary_button"
             >
-              <Link to="/pilot">Request a Pilot</Link>
+              <Link to="/pilot">{t("common.requestPilot")}</Link>
             </Button>
           </div>
         </div>

@@ -2,82 +2,94 @@ import { Button } from "@/components/Button";
 import { Eyebrow } from "@/components/Eyebrow";
 import { PageHeader } from "@/components/PageHeader";
 import { Section } from "@/components/Section";
+import { useLanguage } from "@/i18n";
+import type { TranslationKey } from "@/i18n";
 import { ArrowRight } from "lucide-react";
 
-const benefits = [
+const benefits: {
+  number: string;
+  titleKey: TranslationKey;
+  copyKey: TranslationKey;
+}[] = [
   {
     number: "01",
-    title: "Sovereign",
-    copy: "Keep sensitive workloads, operational state and evidence within required jurisdictional boundaries where the deployment calls for it.",
+    titleKey: "why.benefit.1.title",
+    copyKey: "why.benefit.1.copy",
   },
   {
     number: "02",
-    title: "Economical",
-    copy: "Use an appropriate authorized AI resource for each task rather than defaulting every workload to the most expensive option.",
+    titleKey: "why.benefit.2.title",
+    copyKey: "why.benefit.2.copy",
   },
   {
     number: "03",
-    title: "Model-Agnostic",
-    copy: "Combine locally deployed open-weight resources with approved external or specialized AI services where policy permits.",
+    titleKey: "why.benefit.3.title",
+    copyKey: "why.benefit.3.copy",
   },
   {
     number: "04",
-    title: "Locally Informed",
-    copy: "Ground services in authorized enterprise, institutional and local knowledge.",
+    titleKey: "why.benefit.4.title",
+    copyKey: "why.benefit.4.copy",
   },
   {
     number: "05",
-    title: "Governed",
-    copy: "Observe autonomous operation independently of the model and retain defined human and organizational authority.",
+    titleKey: "why.benefit.5.title",
+    copyKey: "why.benefit.5.copy",
   },
   {
     number: "06",
-    title: "Managed",
-    copy: "SAAAS manages the infrastructure, models, governance, monitoring and service operations.",
+    titleKey: "why.benefit.6.title",
+    copyKey: "why.benefit.6.copy",
   },
 ];
 
-const dimensions = [
+const dimensions: {
+  number: string;
+  nameKey: TranslationKey;
+  questionKey: TranslationKey;
+}[] = [
   {
     number: "01",
-    name: "Data",
-    question: "Where may the information reside?",
+    nameKey: "why.dimension.1.name",
+    questionKey: "why.dimension.1.question",
   },
   {
     number: "02",
-    name: "Compute",
-    question: "Where may inference occur?",
+    nameKey: "why.dimension.2.name",
+    questionKey: "why.dimension.2.question",
   },
   {
     number: "03",
-    name: "Knowledge",
-    question: "Who controls the proprietary or local knowledge supplied to AI?",
+    nameKey: "why.dimension.3.name",
+    questionKey: "why.dimension.3.question",
   },
   {
     number: "04",
-    name: "Governance",
-    question: "Who determines what autonomous AI is permitted to do?",
+    nameKey: "why.dimension.4.name",
+    questionKey: "why.dimension.4.question",
   },
   {
     number: "05",
-    name: "Execution",
-    question: "Who authorizes consequential action and verifies what happened?",
+    nameKey: "why.dimension.5.name",
+    questionKey: "why.dimension.5.question",
   },
 ];
 
 export default function WhySaaasPage() {
+  const { t } = useLanguage();
+
   return (
     <>
       <Section variant="hero">
         <PageHeader
-          eyebrow="Why SAAAS"
+          eyebrow={t("why.hero.eyebrow")}
           title={
             <>
-              Sovereign AI.{" "}
-              <span className="text-gradient-cyan">On Your Terms.</span>
+              {t("why.hero.title1")}{" "}
+              <span className="text-gradient-cyan">{t("why.hero.title2")}</span>
             </>
           }
-          subcopy="Access AI resources appropriate to your organization without surrendering control of your data, institutional knowledge, jurisdiction or operational authority."
+          subcopy={t("why.hero.subcopy")}
         />
       </Section>
 
@@ -93,10 +105,10 @@ export default function WhySaaasPage() {
                 {benefit.number}
               </span>
               <h3 className="mt-3 text-lg font-bold uppercase tracking-[0.04em] text-foreground">
-                {benefit.title}
+                {t(benefit.titleKey)}
               </h3>
               <p className="mt-3 text-sm leading-[1.7] text-card-foreground">
-                {benefit.copy}
+                {t(benefit.copyKey)}
               </p>
             </div>
           ))}
@@ -105,7 +117,7 @@ export default function WhySaaasPage() {
 
       <Section>
         <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow accent>Sovereign AI Defined</Eyebrow>
+          <Eyebrow accent>{t("why.dimensions.eyebrow")}</Eyebrow>
         </div>
 
         <div className="mx-auto mt-12 max-w-3xl">
@@ -121,10 +133,10 @@ export default function WhySaaasPage() {
                 </span>
                 <div>
                   <h3 className="text-base font-bold uppercase tracking-[0.04em] text-foreground">
-                    {dim.name}
+                    {t(dim.nameKey)}
                   </h3>
                   <p className="mt-1 text-sm leading-[1.7] text-card-foreground">
-                    {dim.question}
+                    {t(dim.questionKey)}
                   </p>
                 </div>
               </li>
@@ -136,27 +148,24 @@ export default function WhySaaasPage() {
       <Section alternate>
         <div className="mx-auto max-w-3xl rounded-lg border border-border bg-card px-7 py-5 text-center">
           <p className="text-sm italic leading-[1.7] text-card-foreground">
-            Sovereignty is not merely where the server sits. It is meaningful
-            control across the path from information to AI decision to
-            consequential action.
+            {t("why.quote")}
           </p>
         </div>
       </Section>
 
       <Section>
         <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow accent>Take Command</Eyebrow>
+          <Eyebrow accent>{t("why.cta.eyebrow")}</Eyebrow>
           <h2 className="mt-5 text-3xl font-semibold text-foreground md:text-4xl">
-            Ready to own your AI?
+            {t("why.cta.title")}
           </h2>
           <p className="subheadline mx-auto mt-6 max-w-2xl">
-            See how SAAAS puts your enterprise AI back under your control.
-            Explore the platform or request a pilot to get started.
+            {t("why.cta.body")}
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="lg" data-ocid="why.cta.explore_platform">
               <a href="/platform">
-                Explore the Platform
+                {t("common.explorePlatform")}
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </a>
             </Button>
@@ -166,7 +175,7 @@ export default function WhySaaasPage() {
               size="lg"
               data-ocid="why.cta.request_pilot"
             >
-              <a href="/pilot">Request a Pilot</a>
+              <a href="/pilot">{t("common.requestPilot")}</a>
             </Button>
           </div>
         </div>

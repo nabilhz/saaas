@@ -3,6 +3,8 @@ import { Card } from "@/components/Card";
 import { Eyebrow } from "@/components/Eyebrow";
 import { PageHeader } from "@/components/PageHeader";
 import { Section } from "@/components/Section";
+import { useLanguage } from "@/i18n";
+import type { TranslationKey } from "@/i18n";
 import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
@@ -14,91 +16,97 @@ import {
   ShieldPlus,
   Zap,
 } from "lucide-react";
-import { type Variants, motion } from "motion/react";
+import { type Variants, motion, useReducedMotion } from "motion/react";
 
-const solutions = [
+const solutions: {
+  icon: typeof Landmark;
+  sectorKey: TranslationKey;
+  titleKey: TranslationKey;
+  bodyKey: TranslationKey;
+  capabilityKeys: TranslationKey[];
+}[] = [
   {
     icon: Landmark,
-    sector: "Government",
-    title: "Sovereign AI for Government",
-    body: "Deliver public services powered by AI that never leaves national borders. Deploy models on jurisdiction-resident infrastructure with full auditability and democratic oversight.",
-    capabilities: [
-      "Citizen services and public-sector automation",
-      "National data residency and sovereignty",
-      "Parliamentary and regulatory audit trails",
-      "Cross-agency secure data sharing",
+    sectorKey: "solutions.government.sector",
+    titleKey: "solutions.government.title",
+    bodyKey: "solutions.government.body",
+    capabilityKeys: [
+      "solutions.government.cap1",
+      "solutions.government.cap2",
+      "solutions.government.cap3",
+      "solutions.government.cap4",
     ],
   },
   {
     icon: BarChart3,
-    sector: "Financial Services",
-    title: "Sovereign AI for Finance",
-    body: "Run risk, compliance, and customer intelligence on infrastructure you control. Keep sensitive financial data in-region while meeting the strictest regulatory standards.",
-    capabilities: [
-      "Regulatory-grade model governance",
-      "Fraud detection and risk analytics",
-      "In-region data residency for compliance",
-      "Explainable, auditable decisioning",
+    sectorKey: "solutions.finance.sector",
+    titleKey: "solutions.finance.title",
+    bodyKey: "solutions.finance.body",
+    capabilityKeys: [
+      "solutions.finance.cap1",
+      "solutions.finance.cap2",
+      "solutions.finance.cap3",
+      "solutions.finance.cap4",
     ],
   },
   {
     icon: ShieldPlus,
-    sector: "Healthcare",
-    title: "Sovereign AI for Healthcare",
-    body: "Advance clinical intelligence without compromising patient privacy. Process protected health data on sovereign nodes with granular access control and full traceability.",
-    capabilities: [
-      "Privacy-preserving clinical analytics",
-      "Protected health data residency",
-      "Diagnostic and operational intelligence",
-      "Role-based clinician access control",
+    sectorKey: "solutions.healthcare.sector",
+    titleKey: "solutions.healthcare.title",
+    bodyKey: "solutions.healthcare.body",
+    capabilityKeys: [
+      "solutions.healthcare.cap1",
+      "solutions.healthcare.cap2",
+      "solutions.healthcare.cap3",
+      "solutions.healthcare.cap4",
     ],
   },
   {
     icon: Zap,
-    sector: "Telecommunications",
-    title: "Sovereign AI for Telecommunications",
-    body: "AI-enabled customer and operational workflows at scale, with governed data handling and full auditability.",
-    capabilities: [
-      "Customer service automation",
-      "Network operations intelligence",
-      "Governed data handling",
-      "Operational workflow optimization",
+    sectorKey: "solutions.telecom.sector",
+    titleKey: "solutions.telecom.title",
+    bodyKey: "solutions.telecom.body",
+    capabilityKeys: [
+      "solutions.telecom.cap1",
+      "solutions.telecom.cap2",
+      "solutions.telecom.cap3",
+      "solutions.telecom.cap4",
     ],
   },
   {
     icon: Shield,
-    sector: "Education",
-    title: "Sovereign AI for Education",
-    body: "Affordable governed AI capacity for institutions, teachers and learners — on infrastructure the institution controls.",
-    capabilities: [
-      "Institutional knowledge management",
-      "Personalized learning assistance",
-      "Administrative workflow automation",
-      "Data privacy and student protection",
+    sectorKey: "solutions.education.sector",
+    titleKey: "solutions.education.title",
+    bodyKey: "solutions.education.body",
+    capabilityKeys: [
+      "solutions.education.cap1",
+      "solutions.education.cap2",
+      "solutions.education.cap3",
+      "solutions.education.cap4",
     ],
   },
   {
     icon: Building2,
-    sector: "Agriculture",
-    title: "Sovereign AI for Agriculture",
-    body: "Localized AI knowledge and services for field and enterprise use, grounded in local conditions and language.",
-    capabilities: [
-      "Crop and yield intelligence",
-      "Local language support",
-      "Field and supply chain optimization",
-      "Sovereign agricultural data management",
+    sectorKey: "solutions.agriculture.sector",
+    titleKey: "solutions.agriculture.title",
+    bodyKey: "solutions.agriculture.body",
+    capabilityKeys: [
+      "solutions.agriculture.cap1",
+      "solutions.agriculture.cap2",
+      "solutions.agriculture.cap3",
+      "solutions.agriculture.cap4",
     ],
   },
   {
     icon: Building2,
-    sector: "Enterprise & SMEs",
-    title: "Sovereign AI for Enterprise & SMEs",
-    body: "Bring AI into your enterprise on your own terms. Own your models, data, and infrastructure while scaling across teams with governed, centralized control.",
-    capabilities: [
-      "Private model deployment and versioning",
-      "Enterprise data governance",
-      "Centralized policy and billing",
-      "Self-hosted or hybrid deployment",
+    sectorKey: "solutions.enterprise.sector",
+    titleKey: "solutions.enterprise.title",
+    bodyKey: "solutions.enterprise.body",
+    capabilityKeys: [
+      "solutions.enterprise.cap1",
+      "solutions.enterprise.cap2",
+      "solutions.enterprise.cap3",
+      "solutions.enterprise.cap4",
     ],
   },
 ];
@@ -120,19 +128,26 @@ const item: Variants = {
 };
 
 export default function SolutionsPage() {
+  const { t } = useLanguage();
+  const shouldReduceMotion = useReducedMotion();
+
   return (
     <>
       {/* Page header */}
       <Section className="pt-20">
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: 0.5, ease: "easeOut" }
+          }
         >
           <PageHeader
-            eyebrow="Solutions"
-            title="Solutions"
-            subcopy="Sovereign AI, purpose-built for the sectors that carry the most sensitive responsibilities. Deploy intelligence on infrastructure you own, under governance you control — across government, finance, healthcare, energy, defense, and enterprise."
+            eyebrow={t("solutions.hero.eyebrow")}
+            title={t("solutions.hero.title")}
+            subcopy={t("solutions.hero.subcopy")}
           />
         </motion.div>
       </Section>
@@ -141,7 +156,7 @@ export default function SolutionsPage() {
       <div className="w-full overflow-hidden">
         <img
           src="/assets/generated/solutions-banner.dim_1600x400.jpg"
-          alt="Composite of a government building facade, hospital corridor, and financial trading floor with cyan accent lighting"
+          alt={t("solutions.banner.alt")}
           className="h-[400px] w-full object-cover opacity-80"
           data-ocid="solutions.banner"
         />
@@ -151,43 +166,47 @@ export default function SolutionsPage() {
       <Section className="pt-0">
         <motion.div
           variants={container}
-          initial="hidden"
+          initial={shouldReduceMotion ? false : "hidden"}
           whileInView="show"
           viewport={{ once: true, margin: "-80px" }}
           className="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
         >
           {solutions.map((solution) => (
-            <motion.div key={solution.sector} variants={item}>
+            <motion.div
+              key={solution.sectorKey}
+              variants={shouldReduceMotion ? undefined : item}
+            >
               <Card
                 className="flex h-full flex-col gap-5"
-                data-ocid={`solutions.card.${solution.sector
-                  .toLowerCase()
-                  .replace(/\s+/g, "_")}`}
+                data-ocid={`solutions.card.${solution.sectorKey
+                  .replace(/^solutions\./, "")
+                  .replace(/\.sector$/, "")
+                  .replace(/\./g, "_")}`}
               >
                 <div className="flex flex-col">
                   <solution.icon
                     className="mb-3 h-7 w-7 text-primary"
                     aria-hidden="true"
                   />
-                  <span className="accent-label">{solution.sector}</span>
+                  <span className="accent-label">{t(solution.sectorKey)}</span>
                 </div>
                 <h3 className="font-display text-lg font-bold uppercase tracking-[0.06em] text-foreground">
-                  {solution.title}
+                  {t(solution.titleKey)}
                 </h3>
                 <p className="text-sm leading-[1.75] text-card-foreground">
-                  {solution.body}
+                  {t(solution.bodyKey)}
                 </p>
                 <ul className="mt-auto flex flex-col gap-2.5 border-t border-border pt-5">
-                  {solution.capabilities.map((capability) => (
+                  {solution.capabilityKeys.map((capabilityKey) => (
                     <li
-                      key={capability}
+                      key={capabilityKey}
                       className="flex items-start gap-2.5 text-sm text-card-foreground"
                     >
                       <Check
                         className="mt-0.5 h-4 w-4 shrink-0 text-primary"
                         aria-hidden="true"
                       />
-                      <span>{capability}</span>
+                      <span>{t(capabilityKey)}</span>
                     </li>
                   ))}
                 </ul>
@@ -200,25 +219,27 @@ export default function SolutionsPage() {
       {/* Closing CTA */}
       <Section alternate>
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
+          transition={
+            shouldReduceMotion
+              ? { duration: 0 }
+              : { duration: 0.5, ease: "easeOut" }
+          }
           className="mx-auto max-w-3xl text-center"
         >
-          <Eyebrow accent>Get Started</Eyebrow>
+          <Eyebrow accent>{t("solutions.cta.eyebrow")}</Eyebrow>
           <h2 className="display-headline mt-5 text-3xl text-foreground md:text-4xl">
-            Deploy Sovereign AI in Your Sector
+            {t("solutions.cta.title")}
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-base leading-[1.75] text-card-foreground md:text-lg">
-            Every deployment is tailored to the regulatory, security, and
-            operational realities of your industry. Start with a pilot on your
-            own infrastructure and keep full control of your intelligence.
+            {t("solutions.cta.body")}
           </p>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button asChild size="lg" data-ocid="solutions.cta.request_pilot">
               <Link to="/pilot">
-                Request a Pilot
+                {t("common.requestPilot")}
                 <ArrowRight className="h-4 w-4" aria-hidden="true" />
               </Link>
             </Button>
@@ -228,7 +249,7 @@ export default function SolutionsPage() {
               size="lg"
               data-ocid="solutions.cta.explore_platform"
             >
-              <Link to="/platform">Explore the Platform</Link>
+              <Link to="/platform">{t("common.explorePlatform")}</Link>
             </Button>
           </div>
         </motion.div>

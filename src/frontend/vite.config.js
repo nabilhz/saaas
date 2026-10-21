@@ -12,16 +12,17 @@ process.env.II_URL = process.env.II_URL || ii_url;
 
 export default defineConfig({
   logLevel: "error",
+  define: {
+    global: "globalThis",
+  },
   build: {
     emptyOutDir: true,
     sourcemap: false,
     minify: false,
   },
   optimizeDeps: {
-    esbuildOptions: {
-      define: {
-        global: "globalThis",
-      },
+    rolldownOptions: {
+      transform: { define: { global: "globalThis" } },
     },
   },
   server: {

@@ -1,16 +1,19 @@
 import { Button } from "@/components/Button";
 import { PageHeader } from "@/components/PageHeader";
 import { Section } from "@/components/Section";
+import { useLanguage } from "@/i18n";
 import { ExternalLink } from "lucide-react";
 
 export default function PrivacyPage() {
+  const { t } = useLanguage();
+
   return (
     <>
       <Section variant="hero">
         <PageHeader
-          eyebrow="Legal"
-          title="Privacy Policy & Terms of Use"
-          subcopy="SAAAS operates under the TMU privacy policy and terms of use."
+          eyebrow={t("privacy.hero.eyebrow")}
+          title={t("privacy.hero.title")}
+          subcopy={t("privacy.hero.subcopy")}
         />
       </Section>
 
@@ -22,7 +25,7 @@ export default function PrivacyPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Read Privacy Policy
+              {t("privacy.readPolicy")}
               <ExternalLink className="h-4 w-4" aria-hidden="true" />
             </a>
           </Button>
@@ -37,7 +40,7 @@ export default function PrivacyPage() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Read Terms of Use
+              {t("privacy.readTerms")}
               <ExternalLink className="h-4 w-4" aria-hidden="true" />
             </a>
           </Button>

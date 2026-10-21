@@ -1,4 +1,5 @@
 import { Layout } from "@/components/Layout";
+import { LanguageProvider } from "@/i18n";
 import AboutPage from "@/pages/AboutPage";
 import ControlRoomPage from "@/pages/ControlRoomPage";
 import CountryNodesPage from "@/pages/CountryNodesPage";
@@ -110,5 +111,9 @@ declare module "@tanstack/react-router" {
 }
 
 export default function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <LanguageProvider>
+      <RouterProvider router={router} />
+    </LanguageProvider>
+  );
 }

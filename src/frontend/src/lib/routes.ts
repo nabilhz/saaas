@@ -1,91 +1,102 @@
+import type { TranslationKey } from "@/i18n";
+
 export interface NavLink {
-  label: string;
+  labelKey: TranslationKey;
   to: string;
 }
 
 export interface NavDropdownItem {
-  label: string;
+  labelKey: TranslationKey;
   to?: string;
   href?: string;
   external?: boolean;
 }
 
 export interface NavDropdown {
-  label: string;
+  labelKey: TranslationKey;
   items: NavDropdownItem[];
 }
 
 export const navLinks: NavLink[] = [
-  { label: "HOME", to: "/" },
-  { label: "WHY SAAAS", to: "/why-saaas" },
-  { label: "PLATFORM", to: "/platform" },
-  { label: "GOVERNANCE", to: "/governance" },
-  { label: "SOLUTIONS", to: "/solutions" },
-  { label: "COUNTRY NODES", to: "/country-nodes" },
-  { label: "ABOUT", to: "/about" },
+  { labelKey: "nav.home", to: "/" },
+  { labelKey: "nav.whySaaas", to: "/why-saaas" },
+  { labelKey: "nav.platform", to: "/platform" },
+  { labelKey: "nav.governance", to: "/governance" },
+  { labelKey: "nav.solutions", to: "/solutions" },
+  { labelKey: "nav.countryNodes", to: "/country-nodes" },
+  { labelKey: "nav.about", to: "/about" },
 ];
 
 export const resourcesDropdown: NavDropdown = {
-  label: "RESOURCES",
+  labelKey: "nav.resources",
   items: [
     {
-      label: "SAAAS Overview",
+      labelKey: "nav.resources.saaasOverview",
       href: "https://tmu.ai/docs/SovereignAI-as-a-service.pdf",
       external: true,
     },
-    { label: "Resource Library", to: "/resources" },
+    { labelKey: "nav.resources.resourceLibrary", to: "/resources" },
   ],
 };
 
 export const footerColumns: {
   title: string;
-  links: { label: string; to?: string; href?: string }[];
+  titleKey: TranslationKey;
+  links: { labelKey: TranslationKey; to?: string; href?: string }[];
 }[] = [
   {
     title: "Platform",
+    titleKey: "footer.platform",
     links: [
-      { label: "Control Room", to: "/platform" },
-      { label: "Infrastructure", to: "/platform" },
-      { label: "Security", to: "/platform" },
-      { label: "Integrations", to: "/platform" },
+      { labelKey: "footer.controlRoom", to: "/control-room" },
+      { labelKey: "footer.infrastructure", to: "/platform" },
+      { labelKey: "footer.security", to: "/platform" },
+      { labelKey: "footer.integrations", to: "/platform" },
     ],
   },
   {
     title: "Governance",
+    titleKey: "footer.governance",
     links: [
-      { label: "Framework", to: "/governance" },
-      { label: "Oversight", to: "/governance" },
-      { label: "Compliance", to: "/governance" },
-      { label: "Audit", to: "/governance" },
+      { labelKey: "footer.framework", to: "/governance" },
+      { labelKey: "footer.oversight", to: "/governance" },
+      { labelKey: "footer.compliance", to: "/governance" },
+      { labelKey: "footer.audit", to: "/governance" },
     ],
   },
   {
     title: "Solutions",
+    titleKey: "footer.solutions",
     links: [
-      { label: "Enterprise", to: "/solutions" },
-      { label: "Public Sector", to: "/solutions" },
-      { label: "Research", to: "/solutions" },
-      { label: "Startups", to: "/solutions" },
+      { labelKey: "footer.enterprise", to: "/solutions" },
+      { labelKey: "footer.publicSector", to: "/solutions" },
+      { labelKey: "footer.research", to: "/solutions" },
+      { labelKey: "footer.startups", to: "/solutions" },
     ],
   },
   {
     title: "Network",
+    titleKey: "footer.network",
     links: [
-      { label: "Country Nodes", to: "/country-nodes" },
-      { label: "Partners", to: "/country-nodes" },
-      { label: "Deployments", to: "/country-nodes" },
-      { label: "Roadmap", to: "/country-nodes" },
+      { labelKey: "footer.countryNodes", to: "/country-nodes" },
+      { labelKey: "footer.partners", to: "/country-nodes" },
+      { labelKey: "footer.deployments", to: "/country-nodes" },
+      { labelKey: "footer.roadmap", to: "/country-nodes" },
     ],
   },
   {
     title: "Company",
+    titleKey: "footer.company",
     links: [
-      { label: "About", to: "/about" },
-      { label: "Resources", to: "/resources" },
-      { label: "Careers", to: "/about" },
-      { label: "Contact", to: "/pilot" },
-      { label: "Privacy Policy", href: "https://www.tmu.ai/privacy.php" },
-      { label: "Terms of Use", href: "https://www.tmu.ai/terms.php" },
+      { labelKey: "footer.about", to: "/about" },
+      { labelKey: "footer.resources", to: "/resources" },
+      { labelKey: "footer.careers", to: "/about" },
+      { labelKey: "footer.contact", to: "/pilot" },
+      {
+        labelKey: "footer.privacyPolicy",
+        href: "https://www.tmu.ai/privacy.php",
+      },
+      { labelKey: "footer.termsOfUse", href: "https://www.tmu.ai/terms.php" },
     ],
   },
 ];

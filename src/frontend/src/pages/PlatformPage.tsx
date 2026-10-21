@@ -1,57 +1,64 @@
 import { Button } from "@/components/Button";
 import { Eyebrow } from "@/components/Eyebrow";
 import { Section } from "@/components/Section";
+import { useLanguage } from "@/i18n";
+import type { TranslationKey } from "@/i18n";
 import { Link } from "@tanstack/react-router";
 import { type Variants, motion } from "motion/react";
 
-const layers = [
+const layers: {
+  number: string;
+  nameKey: TranslationKey;
+  roleKey: TranslationKey;
+  whyKey: TranslationKey;
+}[] = [
   {
     number: "01",
-    name: "Experience / Enterprise Interfaces",
-    role: "Web, mobile, APIs, TMU and customer systems.",
-    why: "Where users and enterprise systems interact with governed SAAAS services.",
+    nameKey: "platform.layer.1.name",
+    roleKey: "platform.layer.1.role",
+    whyKey: "platform.layer.1.why",
   },
   {
     number: "02",
-    name: "SAAAS Orchestration",
-    role: "Workflow, agent and institutional-state coordination.",
-    why: "Coordinates business context and service workflow across all components.",
+    nameKey: "platform.layer.2.name",
+    roleKey: "platform.layer.2.role",
+    whyKey: "platform.layer.2.why",
   },
   {
     number: "03",
-    name: "Sovereign Knowledge",
-    role: "Approved enterprise and local knowledge, retrieval and controlled context.",
-    why: "Grounds AI responses in authorized institutional knowledge. Customer data is not used to retrain foundation models.",
+    nameKey: "platform.layer.3.name",
+    roleKey: "platform.layer.3.role",
+    whyKey: "platform.layer.3.why",
   },
   {
     number: "04",
-    name: "Policy-Aware Smart Routing",
-    role: "Select an appropriate authorized model or AI resource per task.",
-    why: "Matches each task to the right AI resource based on capability, cost, latency, data classification, jurisdiction and governance state.",
+    nameKey: "platform.layer.4.name",
+    roleKey: "platform.layer.4.role",
+    whyKey: "platform.layer.4.why",
   },
   {
     number: "05",
-    name: "AI Resource Fabric",
-    role: "Locally deployed open-weight models plus approved external or specialist resources.",
-    why: "Avoids single-model dependency. Architecture is provider-neutral.",
+    nameKey: "platform.layer.5.name",
+    roleKey: "platform.layer.5.role",
+    whyKey: "platform.layer.5.why",
   },
   {
     number: "06",
-    name: "Oblique AI Governance (HIC · X/Y/Z · DriftShield)",
-    role: "Independent X/Y/Z observations and governance-state reconstruction.",
-    why: "Governance is independent of the model. The AI does not judge itself.",
+    nameKey: "platform.layer.6.name",
+    roleKey: "platform.layer.6.role",
+    whyKey: "platform.layer.6.why",
   },
   {
     number: "07",
-    name: "Authorization & Execution Verification",
-    role: "ALLOW / BLOCK / ESCALATE / HUMAN authority; verify execution corresponds to governed state.",
-    why: "Separates the governance decision from the execution act and verifies what actually happened.",
+    nameKey: "platform.layer.7.name",
+    roleKey: "platform.layer.7.role",
+    whyKey: "platform.layer.7.why",
   },
   {
     number: "08",
-    name: "Evidence & Control Room",
-    role: "Traceability, receipts, audit, replay/review and operational visibility.",
-    why: "Every governed consequential action leaves a verifiable evidence record.",
+    nameKey: "platform.layer.8.name",
+    roleKey: "platform.layer.8.role",
+    whyKey: "platform.layer.8.why",
   },
 ];
 
@@ -72,6 +79,8 @@ const item: Variants = {
 };
 
 export default function PlatformPage() {
+  const { t } = useLanguage();
+
   return (
     <>
       {/* HERO */}
@@ -85,17 +94,17 @@ export default function PlatformPage() {
           }}
         />
         <div className="relative mx-auto max-w-3xl text-center">
-          <Eyebrow className="text-[#5A6A80]">Platform</Eyebrow>
+          <Eyebrow className="text-[#5A6A80]">
+            {t("platform.hero.eyebrow")}
+          </Eyebrow>
           <h1 className="display-headline mt-6 text-4xl font-extrabold text-white md:text-5xl">
-            Platform
+            {t("platform.hero.title")}
           </h1>
           <p className="display-headline mt-6 text-3xl font-extrabold text-white md:text-4xl lg:text-5xl">
-            One Governed Gateway. Multiple AI Resources.
+            {t("platform.hero.subtitle")}
           </p>
           <p className="subheadline mx-auto mt-6 max-w-[680px]">
-            A layered architecture combining sovereign deployment, knowledge
-            management, policy-aware routing, independent governance and
-            verified execution.
+            {t("platform.hero.subcopy")}
           </p>
         </div>
       </Section>
@@ -103,9 +112,11 @@ export default function PlatformPage() {
       {/* ARCHITECTURE STACK */}
       <Section alternate>
         <div className="mx-auto max-w-3xl text-center">
-          <Eyebrow className="text-[#5A6A80]">Service Architecture</Eyebrow>
+          <Eyebrow className="text-[#5A6A80]">
+            {t("platform.arch.eyebrow")}
+          </Eyebrow>
           <h2 className="display-headline mt-5 text-3xl font-bold text-white md:text-4xl">
-            How the Platform Works
+            {t("platform.arch.title")}
           </h2>
         </div>
 
@@ -118,7 +129,7 @@ export default function PlatformPage() {
         >
           <img
             src="/assets/generated/platform-architecture-diagram.dim_1200x800.png"
-            alt="Layered architecture diagram of the SAAAS platform with cyan accent lines"
+            alt={t("platform.arch.imageAlt")}
             className="w-full rounded-[12px] border border-border object-cover"
             style={{ boxShadow: "0 0 28px rgba(0,200,255,0.15)" }}
           />
@@ -145,14 +156,14 @@ export default function PlatformPage() {
               </span>
               <div className="min-w-0 flex-1">
                 <h3 className="font-display text-base font-bold uppercase tracking-[0.04em] text-white md:text-lg">
-                  {layer.name}
+                  {t(layer.nameKey)}
                 </h3>
                 <p className="mt-1 text-sm leading-[1.7] text-[#A8B4C8]">
-                  {layer.role}
+                  {t(layer.roleKey)}
                 </p>
               </div>
               <p className="shrink-0 text-xs font-semibold uppercase tracking-[0.08em] text-primary md:max-w-[240px] md:text-right">
-                {layer.why}
+                {t(layer.whyKey)}
               </p>
             </motion.div>
           ))}
@@ -169,7 +180,7 @@ export default function PlatformPage() {
           className="mx-auto max-w-3xl text-center"
         >
           <h2 className="display-headline text-3xl font-extrabold text-white md:text-4xl">
-            Explore How Governance Works.
+            {t("platform.cta.title")}
           </h2>
           <div className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Button
@@ -178,14 +189,14 @@ export default function PlatformPage() {
               className="h-auto rounded-[4px] border-[1.5px] border-primary bg-transparent px-7 py-3.5 text-primary"
               data-ocid="platform.cta.go_to_governance"
             >
-              <Link to="/governance">Go to Governance</Link>
+              <Link to="/governance">{t("platform.cta.goToGovernance")}</Link>
             </Button>
             <Button
               asChild
               className="h-auto rounded-[4px] bg-primary px-7 py-3.5 font-bold text-primary-foreground"
               data-ocid="platform.cta.request_pilot"
             >
-              <Link to="/pilot">Request a Pilot</Link>
+              <Link to="/pilot">{t("common.requestPilot")}</Link>
             </Button>
           </div>
         </motion.div>

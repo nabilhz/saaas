@@ -1,6 +1,6 @@
 import App from "@/App";
 import { footerColumns } from "@/lib/routes";
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it } from "vitest";
 
@@ -28,8 +28,7 @@ const existingRoutes: { link: string; heading: RegExp }[] = [
     link: "COUNTRY NODES",
     heading: /one saaas standard\. many sovereign nations/i,
   },
-  { link: "RESOURCES", heading: /^resources$/i },
-  { link: "ABOUT", heading: /building the sovereign ai layer/i },
+  { link: "ABOUT", heading: /building sovereign ai/i },
 ];
 
 // The nav links render in both the desktop bar and the mobile menu; the
@@ -134,6 +133,16 @@ describe("Existing routes baseline", () => {
         screen.getByRole("heading", { name: heading, level: 1 }),
       ).toBeInTheDocument();
     }
+
+    // Resources is reached through its dropdown's Resource Library item.
+    const trigger = screen.getByTestId("nav.dropdown.resources");
+    fireEvent.pointerDown(trigger, { button: 0, ctrlKey: false });
+    fireEvent.click(
+      screen.getByTestId("nav.dropdown.resources.resource_library"),
+    );
+    expect(
+      await screen.findByRole("heading", { name: /^resources$/i, level: 1 }),
+    ).toBeInTheDocument();
   });
 });
 

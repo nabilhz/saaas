@@ -1,16 +1,20 @@
 {
-  "overview": "SAAAS is a showcase site for an AI governance platform, featuring an interactive Control Room demonstration page.",
+  "overview": "A bilingual English and French marketing website for SAAAS sovereign AI governance, with an instant EN | FR language switcher.",
   "features": [
-    "Interactive Control Room governance demonstration page",
-    "Scenario-based governance gauges and decision badges",
-    "Event timeline table",
-    "Explore Control Room buttons linking to the demo"
+    "Instant EN | FR language switcher in the navigation bar",
+    "Full French translation of every page, the navigation, footer, cookie banner and pilot form",
+    "Language choice remembered in the browser across pages and return visits",
+    "English as the default language",
+    "Brand names, technical terms and decision labels kept in English"
   ],
-  "category": "showcase",
+  "category": "marketing-website",
   "tags": [
-    "ai",
-    "governance",
-    "showcase"
+    "bilingual",
+    "french",
+    "translation",
+    "government",
+    "enterprise",
+    "ai-governance"
   ],
-  "last_updated": "2026-09-14T14:46:29.829Z"
+  "last_updated": "2026-10-20T18:16:39.143Z"
 }

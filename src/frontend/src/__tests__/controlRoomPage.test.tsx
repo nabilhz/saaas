@@ -57,7 +57,7 @@ describe("Control Room page", () => {
     ).toBeInTheDocument();
   });
 
-  it("selecting BEHAVIORAL DRIFT updates gauge X to 0.78 and the badge to ESCALATE, while the status bar stays static", async () => {
+  it("selecting BEHAVIORAL DRIFT updates gauge X to 0.78, the badge to ESCALATE, and the status bar to Escalated / 4 Warnings", async () => {
     const user = renderControlRoom();
 
     await user.click(screen.getByTestId("control_room.scenario.drift"));
@@ -68,21 +68,20 @@ describe("Control Room page", () => {
         /escalate/i,
       ),
     ).toBeInTheDocument();
-    // The status bar is static per the accepted spec: it always shows the
-    // OPERATIONAL / 2 WARNINGS values regardless of the selected scenario.
+    // The status bar reflects the selected scenario.
     expect(
       within(screen.getByTestId("control_room.stat.currentStatus")).getByText(
-        /operational/i,
+        /escalated/i,
       ),
     ).toBeInTheDocument();
     expect(
       within(
         screen.getByTestId("control_room.stat.governanceEvents"),
-      ).getByText(/2 warnings/i),
+      ).getByText(/4 warnings/i),
     ).toBeInTheDocument();
   });
 
-  it("selecting GENESIS BREAK updates gauge Y to 0.31 and the badge to HUMAN REVIEW, while the status bar stays static", async () => {
+  it("selecting GENESIS BREAK updates gauge Y to 0.31, the badge to HUMAN REVIEW, and the status bar to Human Review", async () => {
     const user = renderControlRoom();
 
     await user.click(screen.getByTestId("control_room.scenario.genesis"));
@@ -93,16 +92,15 @@ describe("Control Room page", () => {
         /human review/i,
       ),
     ).toBeInTheDocument();
-    // The status bar is static per the accepted spec: it always shows
-    // OPERATIONAL regardless of the selected scenario.
+    // The status bar reflects the selected scenario.
     expect(
       within(screen.getByTestId("control_room.stat.currentStatus")).getByText(
-        /operational/i,
+        /human review/i,
       ),
     ).toBeInTheDocument();
   });
 
-  it("selecting INHERITANCE BREAK updates gauge Z to 0.22 and the badge to BLOCK, while the status bar stays static", async () => {
+  it("selecting INHERITANCE BREAK updates gauge Z to 0.22, the badge to BLOCK, and the status bar to Blocked", async () => {
     const user = renderControlRoom();
 
     await user.click(screen.getByTestId("control_room.scenario.inheritance"));
@@ -113,11 +111,10 @@ describe("Control Room page", () => {
         /block/i,
       ),
     ).toBeInTheDocument();
-    // The status bar is static per the accepted spec: it always shows
-    // OPERATIONAL regardless of the selected scenario.
+    // The status bar reflects the selected scenario.
     expect(
       within(screen.getByTestId("control_room.stat.currentStatus")).getByText(
-        /operational/i,
+        /blocked/i,
       ),
     ).toBeInTheDocument();
   });

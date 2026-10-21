@@ -1,21 +1,23 @@
+import { useLanguage } from "@/i18n";
+import type { TranslationKey } from "@/i18n";
 import { useState } from "react";
 
 type ScenarioId = "normal" | "drift" | "genesis" | "inheritance";
 
 interface GaugeConfig {
-  label: string;
+  labelKey: TranslationKey;
   value: number;
   color: string;
 }
 
 interface Scenario {
   id: ScenarioId;
-  label: string;
+  labelKey: TranslationKey;
   status: {
     activeAgents: string;
     governedTasks: string;
-    governanceEvents: string;
-    currentStatus: string;
+    governanceEventsKey: TranslationKey;
+    currentStatusKey: TranslationKey;
   };
   gauges: {
     x: GaugeConfig;
@@ -23,7 +25,7 @@ interface Scenario {
     z: GaugeConfig;
   };
   decision: {
-    text: string;
+    textKey: TranslationKey;
     bg: string;
     textColor: string;
     border: string;
@@ -33,20 +35,32 @@ interface Scenario {
 const scenarios: Scenario[] = [
   {
     id: "normal",
-    label: "NORMAL OPERATION",
+    labelKey: "controlRoom.scenario.normal",
     status: {
       activeAgents: "3",
       governedTasks: "247",
-      governanceEvents: "2 Warnings",
-      currentStatus: "Operational",
+      governanceEventsKey: "controlRoom.events.2warnings",
+      currentStatusKey: "controlRoom.status.operational",
     },
     gauges: {
-      x: { label: "BEHAVIORAL DIVERGENCE", value: 0.12, color: "#22C55E" },
-      y: { label: "GENESIS CONTINUITY", value: 0.97, color: "#22C55E" },
-      z: { label: "INHERITANCE CONTINUITY", value: 0.94, color: "#22C55E" },
+      x: {
+        labelKey: "controlRoom.gauge.x",
+        value: 0.12,
+        color: "#22C55E",
+      },
+      y: {
+        labelKey: "controlRoom.gauge.y",
+        value: 0.97,
+        color: "#22C55E",
+      },
+      z: {
+        labelKey: "controlRoom.gauge.z",
+        value: 0.94,
+        color: "#22C55E",
+      },
     },
     decision: {
-      text: "Allow",
+      textKey: "controlRoom.decision.allow",
       bg: "#14532D",
       textColor: "#22C55E",
       border: "#22C55E",
@@ -54,20 +68,32 @@ const scenarios: Scenario[] = [
   },
   {
     id: "drift",
-    label: "BEHAVIORAL DRIFT",
+    labelKey: "controlRoom.scenario.drift",
     status: {
       activeAgents: "3",
       governedTasks: "247",
-      governanceEvents: "4 Warnings",
-      currentStatus: "Escalated",
+      governanceEventsKey: "controlRoom.events.4warnings",
+      currentStatusKey: "controlRoom.status.escalated",
     },
     gauges: {
-      x: { label: "BEHAVIORAL DIVERGENCE", value: 0.78, color: "#F59E0B" },
-      y: { label: "GENESIS CONTINUITY", value: 0.97, color: "#22C55E" },
-      z: { label: "INHERITANCE CONTINUITY", value: 0.94, color: "#22C55E" },
+      x: {
+        labelKey: "controlRoom.gauge.x",
+        value: 0.78,
+        color: "#F59E0B",
+      },
+      y: {
+        labelKey: "controlRoom.gauge.y",
+        value: 0.97,
+        color: "#22C55E",
+      },
+      z: {
+        labelKey: "controlRoom.gauge.z",
+        value: 0.94,
+        color: "#22C55E",
+      },
     },
     decision: {
-      text: "Escalate",
+      textKey: "controlRoom.decision.escalate",
       bg: "#451A03",
       textColor: "#F59E0B",
       border: "#F59E0B",
@@ -75,20 +101,32 @@ const scenarios: Scenario[] = [
   },
   {
     id: "genesis",
-    label: "GENESIS BREAK",
+    labelKey: "controlRoom.scenario.genesis",
     status: {
       activeAgents: "3",
       governedTasks: "247",
-      governanceEvents: "1 Critical",
-      currentStatus: "Human Review",
+      governanceEventsKey: "controlRoom.events.1critical",
+      currentStatusKey: "controlRoom.status.humanReview",
     },
     gauges: {
-      x: { label: "BEHAVIORAL DIVERGENCE", value: 0.12, color: "#22C55E" },
-      y: { label: "GENESIS CONTINUITY", value: 0.31, color: "#EF4444" },
-      z: { label: "INHERITANCE CONTINUITY", value: 0.94, color: "#22C55E" },
+      x: {
+        labelKey: "controlRoom.gauge.x",
+        value: 0.12,
+        color: "#22C55E",
+      },
+      y: {
+        labelKey: "controlRoom.gauge.y",
+        value: 0.31,
+        color: "#EF4444",
+      },
+      z: {
+        labelKey: "controlRoom.gauge.z",
+        value: 0.94,
+        color: "#22C55E",
+      },
     },
     decision: {
-      text: "Human Review",
+      textKey: "controlRoom.decision.humanReview",
       bg: "#450A0A",
       textColor: "#EF4444",
       border: "#EF4444",
@@ -96,20 +134,32 @@ const scenarios: Scenario[] = [
   },
   {
     id: "inheritance",
-    label: "INHERITANCE BREAK",
+    labelKey: "controlRoom.scenario.inheritance",
     status: {
       activeAgents: "3",
       governedTasks: "247",
-      governanceEvents: "1 Critical",
-      currentStatus: "Blocked",
+      governanceEventsKey: "controlRoom.events.1critical",
+      currentStatusKey: "controlRoom.status.blocked",
     },
     gauges: {
-      x: { label: "BEHAVIORAL DIVERGENCE", value: 0.12, color: "#22C55E" },
-      y: { label: "GENESIS CONTINUITY", value: 0.97, color: "#22C55E" },
-      z: { label: "INHERITANCE CONTINUITY", value: 0.22, color: "#EF4444" },
+      x: {
+        labelKey: "controlRoom.gauge.x",
+        value: 0.12,
+        color: "#22C55E",
+      },
+      y: {
+        labelKey: "controlRoom.gauge.y",
+        value: 0.97,
+        color: "#22C55E",
+      },
+      z: {
+        labelKey: "controlRoom.gauge.z",
+        value: 0.22,
+        color: "#EF4444",
+      },
     },
     decision: {
-      text: "Block",
+      textKey: "controlRoom.decision.block",
       bg: "#450A0A",
       textColor: "#EF4444",
       border: "#EF4444",
@@ -117,61 +167,84 @@ const scenarios: Scenario[] = [
   },
 ];
 
-const timelineRows = [
+const timelineRows: {
+  time: string;
+  axis: string;
+  typeKey: TranslationKey;
+  model: string;
+  decision: string;
+}[] = [
   {
     time: "14:32:01",
     axis: "X",
-    type: "Stable observation",
+    typeKey: "controlRoom.timeline.stableObservation",
     model: "open-weight-local",
     decision: "ALLOW",
   },
   {
     time: "14:31:45",
     axis: "Y",
-    type: "Genesis verified",
+    typeKey: "controlRoom.timeline.genesisVerified",
     model: "open-weight-local",
     decision: "ALLOW",
   },
   {
     time: "14:30:22",
     axis: "X",
-    type: "Drift warning",
+    typeKey: "controlRoom.timeline.driftWarning",
     model: "open-weight-local",
     decision: "ESCALATE",
   },
   {
     time: "14:29:58",
     axis: "Z",
-    type: "Inheritance checked",
+    typeKey: "controlRoom.timeline.inheritanceChecked",
     model: "open-weight-local",
     decision: "ALLOW",
   },
   {
     time: "14:28:10",
     axis: "Y",
-    type: "Genesis confirmed",
+    typeKey: "controlRoom.timeline.genesisConfirmed",
     model: "open-weight-local",
     decision: "ALLOW",
   },
 ];
 
-const statLabels = [
-  { key: "activeAgents", label: "Active Agents", value: "3" },
-  { key: "governedTasks", label: "Governed Tasks Today", value: "247" },
-  { key: "governanceEvents", label: "Governance Events", value: "2 WARNINGS" },
-  { key: "currentStatus", label: "Current Status", value: "OPERATIONAL" },
-] as const;
+const statLabels: {
+  key: string;
+  labelKey: TranslationKey;
+}[] = [
+  {
+    key: "activeAgents",
+    labelKey: "controlRoom.stat.activeAgents",
+  },
+  {
+    key: "governedTasks",
+    labelKey: "controlRoom.stat.governedTasks",
+  },
+  {
+    key: "governanceEvents",
+    labelKey: "controlRoom.stat.governanceEvents",
+  },
+  {
+    key: "currentStatus",
+    labelKey: "controlRoom.stat.currentStatus",
+  },
+];
 
-function ArcGauge({ value, color, label }: GaugeConfig) {
+function ArcGauge({ value, color, labelKey }: GaugeConfig) {
+  const { t } = useLanguage();
   const radius = 56;
   const circumference = 2 * Math.PI * radius;
   const dashOffset = circumference * (1 - value);
+  const label = t(labelKey);
 
   return (
     <div className="flex flex-col items-center" data-ocid="control_room.gauge">
       <div className="relative h-40 w-40">
         <svg viewBox="0 0 140 140" className="h-full w-full -rotate-90">
-          <title>{label} gauge</title>
+          <title>{`${label} ${t("controlRoom.gauge.titleSuffix")}`}</title>
           <circle
             cx="70"
             cy="70"
@@ -207,6 +280,7 @@ function ArcGauge({ value, color, label }: GaugeConfig) {
 }
 
 function DecisionBadge({ decision }: { decision: Scenario["decision"] }) {
+  const { t } = useLanguage();
   return (
     <div
       className="inline-flex items-center justify-center rounded-md px-8 py-3 text-xl font-bold uppercase tracking-[0.1em]"
@@ -217,13 +291,14 @@ function DecisionBadge({ decision }: { decision: Scenario["decision"] }) {
       }}
       data-ocid="control_room.decision_badge"
     >
-      {decision.text}
+      {t(decision.textKey)}
     </div>
   );
 }
 
 export default function ControlRoomPage() {
   const [activeId, setActiveId] = useState<ScenarioId>("normal");
+  const { t } = useLanguage();
   const active = scenarios.find((s) => s.id === activeId) ?? scenarios[0];
 
   return (
@@ -235,7 +310,7 @@ export default function ControlRoomPage() {
         data-ocid="control_room.disclaimer_banner"
       >
         <p className="text-sm font-semibold uppercase tracking-[0.08em] text-white">
-          Interactive Governance Demonstration — Simulated Data Only
+          {t("controlRoom.disclaimerBanner")}
         </p>
       </div>
 
@@ -253,11 +328,11 @@ export default function ControlRoomPage() {
           aria-hidden="true"
         />
         <div className="relative mx-auto flex max-w-4xl flex-col items-center px-6 py-20 text-center">
-          <span className="eyebrow">SAAAS GOVERNANCE</span>
+          <span className="eyebrow">{t("controlRoom.hero.eyebrow")}</span>
           <h1 className="display-headline mt-6 text-4xl font-extrabold uppercase tracking-[0.05em] text-foreground md:text-6xl">
-            One glance. The state of
+            {t("controlRoom.hero.title1")}
             <br />
-            your AI operation.
+            {t("controlRoom.hero.title2")}
           </h1>
         </div>
       </section>
@@ -285,7 +360,7 @@ export default function ControlRoomPage() {
                 }}
                 data-ocid={`control_room.scenario.${scenario.id}`}
               >
-                {scenario.label}
+                {t(scenario.labelKey)}
               </button>
             );
           })}
@@ -295,20 +370,30 @@ export default function ControlRoomPage() {
       {/* STATUS BAR */}
       <section className="bg-background">
         <div className="container mx-auto my-6 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {statLabels.map((stat) => (
-            <div
-              key={stat.key}
-              className="rounded-lg border border-border bg-card p-5"
-              data-ocid={`control_room.stat.${stat.key}`}
-            >
-              <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
-                {stat.label}
-              </p>
-              <p className="mt-2 text-2xl font-bold text-foreground">
-                {stat.value}
-              </p>
-            </div>
-          ))}
+          {statLabels.map((stat) => {
+            const value =
+              stat.key === "activeAgents"
+                ? active.status.activeAgents
+                : stat.key === "governedTasks"
+                  ? active.status.governedTasks
+                  : stat.key === "governanceEvents"
+                    ? t(active.status.governanceEventsKey)
+                    : t(active.status.currentStatusKey);
+            return (
+              <div
+                key={stat.key}
+                className="rounded-lg border border-border bg-card p-5"
+                data-ocid={`control_room.stat.${stat.key}`}
+              >
+                <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
+                  {t(stat.labelKey)}
+                </p>
+                <p className="mt-2 text-2xl font-bold text-foreground">
+                  {value}
+                </p>
+              </div>
+            );
+          })}
         </div>
       </section>
 
@@ -336,11 +421,21 @@ export default function ControlRoomPage() {
               <table className="w-full min-w-[640px] text-left font-mono text-sm text-card-foreground">
                 <thead>
                   <tr className="border-b border-border text-xs uppercase tracking-[0.12em] text-muted-foreground">
-                    <th className="px-5 py-3 font-semibold">Timestamp</th>
-                    <th className="px-5 py-3 font-semibold">Axis</th>
-                    <th className="px-5 py-3 font-semibold">Event</th>
-                    <th className="px-5 py-3 font-semibold">Model</th>
-                    <th className="px-5 py-3 font-semibold">Decision</th>
+                    <th className="px-5 py-3 font-semibold">
+                      {t("controlRoom.timeline.timestamp")}
+                    </th>
+                    <th className="px-5 py-3 font-semibold">
+                      {t("controlRoom.timeline.axis")}
+                    </th>
+                    <th className="px-5 py-3 font-semibold">
+                      {t("controlRoom.timeline.event")}
+                    </th>
+                    <th className="px-5 py-3 font-semibold">
+                      {t("controlRoom.timeline.model")}
+                    </th>
+                    <th className="px-5 py-3 font-semibold">
+                      {t("controlRoom.timeline.decision")}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -352,7 +447,7 @@ export default function ControlRoomPage() {
                     >
                       <td className="px-5 py-3">{row.time}</td>
                       <td className="px-5 py-3">{row.axis}</td>
-                      <td className="px-5 py-3">{row.type}</td>
+                      <td className="px-5 py-3">{t(row.typeKey)}</td>
                       <td className="px-5 py-3">{row.model}</td>
                       <td className="px-5 py-3">
                         <span
@@ -388,9 +483,7 @@ export default function ControlRoomPage() {
         data-ocid="control_room.disclaimer_bottom"
       >
         <p className="mx-auto max-w-3xl text-sm leading-relaxed">
-          This demonstration uses simulated data only. Production governance
-          metrics require validated HIC/DriftShield integration. Scenario
-          buttons change display values for illustration purposes only.
+          {t("controlRoom.disclaimerBottom")}
         </p>
       </div>
     </>

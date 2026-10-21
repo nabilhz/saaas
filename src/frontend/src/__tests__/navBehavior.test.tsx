@@ -56,8 +56,8 @@ describe("Navbar single-line layout", () => {
     // The links row is a responsive flex container so links sit on one line.
     expect(containerClasses).toContain("lg:flex");
     expect(containerClasses).toContain("items-center");
-    // The 16px gap between links keeps them from crowding or wrapping.
-    expect(containerClasses).toContain("gap-4");
+    // The 14px gap between links keeps them from crowding or wrapping.
+    expect(containerClasses).toContain("gap-[14px]");
   });
 
   it("keeps each desktop nav link on one line with 13px text", () => {

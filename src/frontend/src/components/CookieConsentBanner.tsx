@@ -1,4 +1,5 @@
 import { Button } from "@/components/Button";
+import { useLanguage } from "@/i18n";
 import { useEffect, useState } from "react";
 
 const CONSENT_STORAGE_KEY = "saaas.cookie-consent";
@@ -13,6 +14,7 @@ function hasStoredConsent(): boolean {
 
 export function CookieConsentBanner() {
   const [visible, setVisible] = useState(false);
+  const { t } = useLanguage();
 
   useEffect(() => {
     if (!hasStoredConsent()) {
@@ -35,14 +37,13 @@ export function CookieConsentBanner() {
 
   return (
     <section
-      aria-label="Cookie consent"
+      aria-label={t("cookie.ariaLabel")}
       className="fixed inset-x-0 bottom-0 z-[60] border-t border-[#1E293B] bg-[#0D1B2A]"
       data-ocid="cookie_consent.banner"
     >
       <div className="container flex flex-col gap-4 py-4 md:flex-row md:items-center md:justify-between md:gap-8">
         <p className="text-sm leading-relaxed text-card-foreground">
-          This site uses cookies for essential functionality. By continuing to
-          use this site, you accept our use of cookies.
+          {t("cookie.message")}
         </p>
         <div className="flex shrink-0 items-center gap-3">
           <Button
@@ -53,7 +54,7 @@ export function CookieConsentBanner() {
             className="bg-[#00C8FF] text-[#07090F] hover:bg-[#00C8FF]/90"
             data-ocid="cookie_consent.accept_button"
           >
-            Accept
+            {t("cookie.accept")}
           </Button>
           <Button
             asChild
@@ -67,7 +68,7 @@ export function CookieConsentBanner() {
               rel="noreferrer"
               data-ocid="cookie_consent.learn_more_link"
             >
-              Learn More
+              {t("cookie.learnMore")}
             </a>
           </Button>
         </div>
